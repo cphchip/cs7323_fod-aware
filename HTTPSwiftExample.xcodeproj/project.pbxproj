@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35B1C2CC2D050556003E1B39 /* new_tray.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35B1C2CB2D050556003E1B39 /* new_tray.storyboard */; };
+		35B1C2CE2D050823003E1B39 /* TrayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B1C2CD2D050823003E1B39 /* TrayViewController.swift */; };
 		B67483DB1ACA2D6800A9970E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67483DA1ACA2D6800A9970E /* AppDelegate.swift */; };
 		B67483DD1ACA2D6800A9970E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67483DC1ACA2D6800A9970E /* ViewController.swift */; };
 		B67483E01ACA2D6800A9970E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B67483DE1ACA2D6800A9970E /* Main.storyboard */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		35B1C2CB2D050556003E1B39 /* new_tray.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = new_tray.storyboard; sourceTree = "<group>"; };
+		35B1C2CD2D050823003E1B39 /* TrayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayViewController.swift; sourceTree = "<group>"; };
 		B67483D51ACA2D6800A9970E /* HTTPSwiftExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HTTPSwiftExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B67483D91ACA2D6800A9970E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B67483DA1ACA2D6800A9970E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +68,8 @@
 				FB27E5732CF55ECA00558096 /* ModelUtils.swift */,
 				FB27E5752CF55ED400558096 /* MultipartRequest.swift */,
 				B67483DE1ACA2D6800A9970E /* Main.storyboard */,
+				35B1C2CB2D050556003E1B39 /* new_tray.storyboard */,
+				35B1C2CD2D050823003E1B39 /* TrayViewController.swift */,
 				B67483E11ACA2D6800A9970E /* Images.xcassets */,
 				B67483D81ACA2D6800A9970E /* Supporting Files */,
 			);
@@ -138,6 +144,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35B1C2CC2D050556003E1B39 /* new_tray.storyboard in Resources */,
 				B67483E01ACA2D6800A9970E /* Main.storyboard in Resources */,
 				B67483E21ACA2D6800A9970E /* Images.xcassets in Resources */,
 			);
@@ -152,6 +159,7 @@
 			files = (
 				FB27E5742CF55ECA00558096 /* ModelUtils.swift in Sources */,
 				B67483DD1ACA2D6800A9970E /* ViewController.swift in Sources */,
+				35B1C2CE2D050823003E1B39 /* TrayViewController.swift in Sources */,
 				B67483DB1ACA2D6800A9970E /* AppDelegate.swift in Sources */,
 				FB27E5722CF55E9800558096 /* MLClient.swift in Sources */,
 				FB27E5762CF55ED400558096 /* MultipartRequest.swift in Sources */,
@@ -284,14 +292,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 39H8V3866P;
+				DEVELOPMENT_TEAM = SL7HQTQV6F;
 				INFOPLIST_FILE = HTTPSwiftExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "chiph.mlaas-wilma";
+				PRODUCT_BUNDLE_IDENTIFIER = chiph.mlaas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -301,14 +309,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 39H8V3866P;
+				DEVELOPMENT_TEAM = SL7HQTQV6F;
 				INFOPLIST_FILE = HTTPSwiftExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "chiph.mlaas-wilma";
+				PRODUCT_BUNDLE_IDENTIFIER = chiph.mlaas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};

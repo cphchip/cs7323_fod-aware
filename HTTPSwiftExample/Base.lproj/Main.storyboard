@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="RtX-8b-nDc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="Gmn-YQ-6OU">
     <device id="retina6_3" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
@@ -8,6 +8,22 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="9Pn-e0-sSW">
+            <objects>
+                <navigationController id="Gmn-YQ-6OU" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YCM-cp-egY">
+                        <rect key="frame" x="0.0" y="62" width="402" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="RtX-8b-nDc" kind="relationship" relationship="rootViewController" id="Pmp-tL-WMZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fUl-Zp-VjZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="124" y="290"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="rIk-TU-PGo">
             <objects>
@@ -39,7 +55,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="402" height="236"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3lc-Rd-6jP">
-                                        <rect key="frame" x="8" y="98.666666666666686" width="80" height="60"/>
+                                        <rect key="frame" x="8" y="142.66666666666666" width="80" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="X2u-mr-b6q"/>
                                             <constraint firstAttribute="width" constant="80" id="zO0-cf-nLk"/>
@@ -51,7 +67,7 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w1a-oL-f12">
-                                        <rect key="frame" x="155.66666666666669" y="55.666666666666657" width="149.66666666666669" height="35"/>
+                                        <rect key="frame" x="155.66666666666669" y="99.666666666666671" width="149.66666666666669" height="35.000000000000014"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="crW-vg-7oH"/>
                                             <constraint firstAttribute="width" constant="149.66999999999999" id="m5s-FB-lGa"/>
@@ -60,7 +76,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Detection:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DzO-mG-87z">
-                                        <rect key="frame" x="8.0000000000000071" y="62.666666666666657" width="117.66666666666669" height="21"/>
+                                        <rect key="frame" x="8.0000000000000071" y="106.66666666666667" width="117.66666666666669" height="21"/>
                                         <color key="backgroundColor" systemColor="linkColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="117.67" id="6FS-IO-xmh"/>
@@ -71,7 +87,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="344-9E-JvP">
-                                        <rect key="frame" x="140" y="98.666666666666686" width="122" height="60"/>
+                                        <rect key="frame" x="140" y="142.66666666666666" width="122" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="122" id="RY9-rW-8jc"/>
                                             <constraint firstAttribute="height" constant="60" id="jKo-RO-pCj"/>
@@ -89,7 +105,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hnx-72-uCy">
-                                        <rect key="frame" x="314" y="98.666666666666686" width="80" height="60"/>
+                                        <rect key="frame" x="314" y="142.66666666666666" width="80" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="koh-27-EAT"/>
                                             <constraint firstAttribute="width" constant="80" id="q0q-D1-zcA"/>
@@ -106,7 +122,7 @@
                                         </connections>
                                     </button>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1Tg-Qr-uwH">
-                                        <rect key="frame" x="137.66666666666666" y="166" width="126.99999999999997" height="32"/>
+                                        <rect key="frame" x="137.66666666666666" y="210" width="126.99999999999997" height="32"/>
                                         <segments>
                                             <segment title="Train"/>
                                             <segment title="Predict"/>
@@ -191,6 +207,15 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xb6-OG-dyI">
+                                        <rect key="frame" x="156" y="83" width="92" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Add Tray"/>
+                                        <connections>
+                                            <segue destination="D94-db-Su2" kind="push" id="kLR-XI-i2K"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -228,6 +253,7 @@
                             <constraint firstItem="PRE-AD-cCU" firstAttribute="height" secondItem="b43-BF-2Q9" secondAttribute="height" multiplier="1:4" constant="17.5" id="sR2-7T-Xfr"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="hlX-Uu-MQA"/>
                     <connections>
                         <outlet property="StartStopCamera" destination="Q83-th-e1u" id="F7x-p8-O90"/>
                         <outlet property="cameraFeedView" destination="PY3-7Z-mBZ" id="K8W-fw-hiJ"/>
@@ -245,13 +271,23 @@
             </objects>
             <point key="canvasLocation" x="1131.3432835820895" y="261.55606407322654"/>
         </scene>
+        <!--new_tray-->
+        <scene sceneID="5Hz-gh-Wgq">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="new_tray" storyboardName="new_tray" referencedIdentifier="new_tray" id="D94-db-Su2" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="xkd-0q-pon"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kc4-Xb-Fvt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1922" y="69"/>
+        </scene>
     </scenes>
     <resources>
         <systemColor name="lightTextColor">
             <color white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
