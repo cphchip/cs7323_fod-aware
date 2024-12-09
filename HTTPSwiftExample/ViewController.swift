@@ -13,8 +13,7 @@
 import AVFoundation
 import UIKit
 
-class ViewController: UIViewController, AVCapturePhotoCaptureDelegate,
-    UITextFieldDelegate
+class ViewController: UIViewController, AVCapturePhotoCaptureDelegate
 {
 
     //Ref Cite:  ChatGPT
@@ -36,17 +35,10 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate,
     var isCameraRunning = false  // To track the camera state
 
 
-    var objDetectMenuItems: [String] = [] //pull down menu items of objects to detect in images
     var imageCount = 0                    // count of images taken
     var currentObjectSelected = "none"
     var currentResizedImage: UIImage!     // current image to process
 
-    var trainMode: Bool = false           // training mode
-    var selectedModel: String = "svc"     // selected model
-
-
-    // Predict or Train mode selection
-    var trainPredictMode: Bool = false    // train/predict selection
 
     // User Interface properties
     @IBOutlet weak var capturedImageView: UIImageView!
@@ -54,11 +46,7 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate,
     @IBOutlet weak var StartStopCamera: UIButton!
     @IBOutlet weak var imgCaptureButton: UIButton!
     @IBOutlet weak var imageCountLabel: UILabel!
-    @IBOutlet weak var feedbackLabel: UILabel!
-    @IBOutlet weak var objDetectPullDown: UIButton!
-    @IBOutlet weak var newObjToDetect: UITextField!
-    @IBOutlet weak var modelSelector: UISegmentedControl!
-    @IBOutlet weak var trainPredictSegControl: UISegmentedControl!
+
 
     // MARK: View Controller Life Cycle
     override func viewDidLoad() {
@@ -74,82 +62,16 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate,
         StartStopCamera.setTitle("Start Camera", for: .normal)
 
         // use delegation for interacting with client
-        client.delegate = self
-
-        // delegate for new ObjectToDetect textFied
-        newObjToDetect.delegate = self
+        //client.delegate = self
 
         // Get the labels from the server
         let labelDataSets = client.getLabels()
 
         // Extract labels from array of DataSets - [Dataset]
-        let labels = labelDataSets.map { $0.label }
-        // Set up the initial menu
-        updateMenu(with: labels)
-        objDetectMenuItems = labels
-        trainMode = trainPredictSegControl.selectedSegmentIndex == 0
-        print("Train Mode: \(trainMode)")
-
-        selectedModel = modelSelector.selectedSegmentIndex == 0 ? "svc" : "rf"
-        print("Selected Model: \(selectedModel)")
+       // let labels = labelDataSets.map { $0.label }
 
     }
 
-    // Update the pull-down menu dynamically
-    func updateMenu(with items: [String]) {
-        var menuActions: [UIAction] = []
-        print("Items: \(items)")
-        if items.isEmpty {
-            let defaultAction = UIAction(
-                title: "No options available",
-                handler: { _ in
-                    print("No options available selected")
-                })
-            menuActions.append(defaultAction)
-        } else {
-            for item in items {
-                let action = UIAction(
-                    title: item,
-                    handler: { _ in
-                        print("\(item) selected")
-                        self.updateButtonTitle(with: item)
-                    })
-                menuActions.append(action)
-            }
-        }
-
-        let menu = UIMenu(title: "Options", children: menuActions)
-        objDetectPullDown.menu = menu
-        objDetectPullDown.showsMenuAsPrimaryAction = true
-    }
-
-    func updateButtonTitle(with item: String) {
-        // Update the button's title to reflect the selected item
-        objDetectPullDown.setTitle(item, for: .normal)
-        currentObjectSelected = item
-    }
-
-    @IBAction func modelSelectValueChanged(_ sender: UISegmentedControl) {
-        // Retrieve the selected index
-        let selectedIndex = sender.selectedSegmentIndex
-
-        // Get the title of the selected segment (if needed)
-        let selectedTitle: String
-        switch selectedIndex {
-        case 0:
-            selectedTitle = "svc"
-        case 1:
-            selectedTitle = "rf"
-        default:
-            selectedTitle = "Unknown"
-        }
-
-        print("Selected Index: \(selectedIndex)")
-        print("Selected Title: \(selectedTitle)")
-
-        selectedModel = selectedTitle
-
-    }
 
     // Photo capture button pressed. Capture photo
     @IBAction func capturePhotoButtonTapped(_ sender: UIButton) {
@@ -207,49 +129,6 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate,
         }
     }
 
-    // MARK:
-    // Allow the user to change the IP via text field.
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == newObjToDetect {
-            createNewLabel()
-            newObjToDetect.resignFirstResponder()  // Dismiss the keyboard
-        }
-        return true
-    }
-
-    // Process the input for menu items
-    func createNewLabel() {
-        guard let newItem = newObjToDetect.text, !newItem.isEmpty else {
-            print("No item entered")
-            return
-        }
-        print("current items: \(objDetectMenuItems)")
-        // Prevent duplicate items
-        guard !objDetectMenuItems.contains(newItem) else {
-            print("Item already exists")
-            newObjToDetect.text = ""  // Clear the text field
-            newObjToDetect.resignFirstResponder()  // Dismiss the keyboard
-            return
-        }
-
-        // Add the new item and update the menu
-        objDetectMenuItems.append(newItem)
-        print("New item added: \(newItem)")
-        updateMenu(with: objDetectMenuItems)
-
-        // Add the new item to the MLClient
-        client.addLabel(newItem)
-
-        // Clear the text field and dismiss the keyboard
-        newObjToDetect.text = ""
-        newObjToDetect.resignFirstResponder()
-    }
-
-    @IBAction func trainPredictSeg(_ sender: Any) {
-        let selectedIndex = trainPredictSegControl.selectedSegmentIndex
-        trainMode = selectedIndex == 0
-        print("Train Mode: \(trainMode)")
-    }
 
     @IBAction func startStopCameraOps(_ sender: Any) {
         if isCameraRunning {  // If Camera is active, stop camera and restore UI
@@ -332,22 +211,9 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate,
         view.backgroundColor = .white  // Reset to the initial background color
     }
 
-    @IBAction func trainButtonClicked(_ sender: AnyObject) {
-
-        feedbackLabel.text = "Training!"
-
-        print("Train BTN: model sel = \(selectedModel)")
-        sleep(2)
-
-        if let dsid = client.getLabel(byName: currentObjectSelected)?.dsid {
-            print("VC-trainModel selected: dsid = \(dsid)")
-            client.trainModel(dsid: dsid, model_t: selectedModel)
-        }
-
-    }
-
+    //TODO: Need to update function name for Final Proj
     func uploadTrainingImage() {
-        feedbackLabel.text = "Uploading!"
+        //feedbackLabel.text = "Uploading!"
 
         if let dsid = client.getLabel(byName: currentObjectSelected)?.dsid {
             print("VC-uploadTrainingImage selected: dsid = \(dsid)")
@@ -358,84 +224,44 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate,
         }
     }
 
-    func predict() {
-        feedbackLabel.text = "Predicting!"
 
-        print("predictModel BTN: model sel = \(selectedModel)")
 
-        if let dsid = client.getLabel(byName: currentObjectSelected)?.dsid {
-            print("VC-tpredictModel selected: dsid = \(dsid)")
-            client.predict(
-                image: currentResizedImage, dsid: dsid, model_t: selectedModel)
-        }
-    }
 
     @IBAction func objSelectionChange(_ sender: Any) {
         imageCountLabel.text = "0 / 5"
         imageCount = 0
     }
     
-    
+    //TODO: Need to update function name for Final Proj
     @IBAction func uploadImageClicked(_ sender: Any) {
-
-        if trainMode {
             uploadTrainingImage()
-        } else {
-            predict()
-        }
-
     }
 
 }
 
 //MARK: MLClient Protocol Required Functions
-extension ViewController: MLClientProtocol {
-    // function to print the labels fetched
-    func didFetchLabels(labels: [Dataset]) {
-        print(labels)
-    }
-    // function to print the label added
-    func labelAdded(label: Dataset?, error: APIError?) {
-        if let error = error {
-            print(error.localizedDescription)
-        } else {
-            print("Label added: \(label?.label ?? "")")
-        }
-    }
-    // function to indicate whether the image was uploaded successfully
-    func uploadImageComplete(success: Bool, errMsg: String?) {
-        if success {
-            print("Image uploaded successfully")
-            feedbackLabel.text = "Image uploaded"
-        } else {
-            print("Image upload failed: \(errMsg ?? "")")
-            feedbackLabel.text = "upload failed"
-        }
-    }
-    
-    // function to indicate model training complete
-    func modelTrainingComplete(result: [String: Any]?, error: APIError?) {
-        print("Model training complete: \(result)")
-        if let result = result,
-            let accuracy = result["accuracy"] as? Double
-        {
-            let accuracyFormatted = String(format: "%.2f", accuracy * 100)
-            feedbackLabel.text =
-                "accuracy = \(accuracyFormatted)%"
-        } else {
-            feedbackLabel.text = "No result"
-        }
-    }
-    // function to indicate model prediction complete
-    func predictionComplete(result: [String: Any]?, error: APIError?) {
-        print("Prediction complete: \(result)")
-        if let result = result,
-            let prediction = result["prediction"] as? Int
-        {
-            feedbackLabel.text = "Prediction: \(prediction == 1)"
-        } else {
-            feedbackLabel.text = "No result"
-        }
-
-    }
-}
+//extension ViewController: MLClientProtocol {
+//    // function to print the labels fetched
+//    func didFetchLabels(labels: [Dataset]) {
+//        print(labels)
+//    }
+//    // function to print the label added
+//    func labelAdded(label: Dataset?, error: APIError?) {
+//        if let error = error {
+//            print(error.localizedDescription)
+//        } else {
+//            print("Label added: \(label?.label ?? "")")
+//        }
+//    }
+//    // function to indicate whether the image was uploaded successfully
+//    func uploadImageComplete(success: Bool, errMsg: String?) {
+//        if success {
+//            print("Image uploaded successfully")
+//           // feedbackLabel.text = "Image uploaded"
+//        } else {
+//            print("Image upload failed: \(errMsg ?? "")")
+//            //feedbackLabel.text = "upload failed"
+//        }
+//    }
+//    
+//}

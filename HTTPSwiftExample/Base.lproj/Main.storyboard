@@ -66,7 +66,6 @@
                                             <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="trainButtonClicked:" destination="RtX-8b-nDc" eventType="touchUpInside" id="6Dg-fv-Fa8"/>
                                             <segue destination="N6v-Fj-6cJ" kind="push" id="iBb-aU-uzM"/>
                                         </connections>
                                     </button>
