@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TrayHistoryViewController: UIViewController {
+class TrayHistoryViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
