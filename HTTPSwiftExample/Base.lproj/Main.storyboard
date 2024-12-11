@@ -66,7 +66,7 @@
                                             <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <segue destination="kwR-bV-UzH" kind="push" id="4n9-az-eZU"/>
+                                            <segue destination="kwR-bV-UzH" kind="push" identifier="ShowTrayHistoryViewController" id="fRv-ia-KqA"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -130,7 +130,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Add Tray"/>
                                         <connections>
-                                            <segue destination="D94-db-Su2" kind="push" id="kLR-XI-i2K"/>
+                                            <segue destination="D94-db-Su2" kind="push" identifier="ShowTrayViewController" id="kLR-XI-i2K"/>
                                         </connections>
                                     </button>
                                 </subviews>

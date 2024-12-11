@@ -65,13 +65,31 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate
         //client.delegate = self
 
         // Get the labels from the server
-        let labelDataSets = client.getLabels()
+        //let labelDataSets = client.getLabels()
 
         // Extract labels from array of DataSets - [Dataset]
        // let labels = labelDataSets.map { $0.label }
 
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowTrayViewController" {
+            let destinationVC = segue.destination as? TrayViewController
+            //destinationVC?.objectImage = capturedImageView.image // Pass the object image
+            guard let destinationVC = destinationVC,
+                  let capturedImage = capturedImageView.image else {
+                print("Either destinationVC or capturedImageView.image is nil")
+                return
+            }
+            
+            destinationVC.objectImage = capturedImage
+        }
+        else if segue.identifier == "ShowTrayHistoryViewController", // Match the identifier of the segue
+           let trayHistoryVC = segue.destination as? TrayHistoryViewController {
+            trayHistoryVC.objectImages = SharedImageModel.sharedImages.trayImages // Pass images
+        }
+    }
+    
 
     // Photo capture button pressed. Capture photo
     @IBAction func capturePhotoButtonTapped(_ sender: UIButton) {
