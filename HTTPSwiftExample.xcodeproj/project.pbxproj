@@ -16,7 +16,9 @@
 		D9112D962D069111002CDD9E /* TrayHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D952D069111002CDD9E /* TrayHistoryViewController.swift */; };
 		D9112D982D06A3A7002CDD9E /* Tray_History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9112D972D06A3A7002CDD9E /* Tray_History.storyboard */; };
 		D9112D9A2D088D15002CDD9E /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D992D088D15002CDD9E /* CollectionViewCell.swift */; };
-		D9112D9C2D0951BD002CDD9E /* SharedImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D9B2D0951BD002CDD9E /* SharedImageModel.swift */; };
+		D9112D9C2D0951BD002CDD9E /* SharedDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D9B2D0951BD002CDD9E /* SharedDataModel.swift */; };
+		D9112D9E2D09D11D002CDD9E /* Tray_Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9112D9D2D09D11D002CDD9E /* Tray_Detail.storyboard */; };
+		D9112DA02D09D372002CDD9E /* TrayDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D9F2D09D372002CDD9E /* TrayDetailViewController.swift */; };
 		FB27E5722CF55E9800558096 /* MLClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB27E5712CF55E8D00558096 /* MLClient.swift */; };
 		FB27E5742CF55ECA00558096 /* ModelUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB27E5732CF55ECA00558096 /* ModelUtils.swift */; };
 		FB27E5762CF55ED400558096 /* MultipartRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB27E5752CF55ED400558096 /* MultipartRequest.swift */; };
@@ -34,7 +36,9 @@
 		D9112D952D069111002CDD9E /* TrayHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayHistoryViewController.swift; sourceTree = "<group>"; };
 		D9112D972D06A3A7002CDD9E /* Tray_History.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tray_History.storyboard; sourceTree = "<group>"; };
 		D9112D992D088D15002CDD9E /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
-		D9112D9B2D0951BD002CDD9E /* SharedImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedImageModel.swift; sourceTree = "<group>"; };
+		D9112D9B2D0951BD002CDD9E /* SharedDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDataModel.swift; sourceTree = "<group>"; };
+		D9112D9D2D09D11D002CDD9E /* Tray_Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tray_Detail.storyboard; sourceTree = "<group>"; };
+		D9112D9F2D09D372002CDD9E /* TrayDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayDetailViewController.swift; sourceTree = "<group>"; };
 		FB27E5712CF55E8D00558096 /* MLClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLClient.swift; sourceTree = "<group>"; };
 		FB27E5732CF55ECA00558096 /* ModelUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelUtils.swift; sourceTree = "<group>"; };
 		FB27E5752CF55ED400558096 /* MultipartRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartRequest.swift; sourceTree = "<group>"; };
@@ -73,13 +77,15 @@
 				FB27E5712CF55E8D00558096 /* MLClient.swift */,
 				B67483DA1ACA2D6800A9970E /* AppDelegate.swift */,
 				B67483DC1ACA2D6800A9970E /* ViewController.swift */,
-				D9112D9B2D0951BD002CDD9E /* SharedImageModel.swift */,
+				D9112D9B2D0951BD002CDD9E /* SharedDataModel.swift */,
 				FB27E5732CF55ECA00558096 /* ModelUtils.swift */,
 				FB27E5752CF55ED400558096 /* MultipartRequest.swift */,
 				B67483DE1ACA2D6800A9970E /* Main.storyboard */,
 				35B1C2CB2D050556003E1B39 /* new_tray.storyboard */,
+				D9112D9D2D09D11D002CDD9E /* Tray_Detail.storyboard */,
 				D9112D972D06A3A7002CDD9E /* Tray_History.storyboard */,
 				35B1C2CD2D050823003E1B39 /* TrayViewController.swift */,
+				D9112D9F2D09D372002CDD9E /* TrayDetailViewController.swift */,
 				D9112D952D069111002CDD9E /* TrayHistoryViewController.swift */,
 				D9112D992D088D15002CDD9E /* CollectionViewCell.swift */,
 				B67483E11ACA2D6800A9970E /* Images.xcassets */,
@@ -159,6 +165,7 @@
 				35B1C2CC2D050556003E1B39 /* new_tray.storyboard in Resources */,
 				B67483E01ACA2D6800A9970E /* Main.storyboard in Resources */,
 				B67483E21ACA2D6800A9970E /* Images.xcassets in Resources */,
+				D9112D9E2D09D11D002CDD9E /* Tray_Detail.storyboard in Resources */,
 				D9112D982D06A3A7002CDD9E /* Tray_History.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,7 +185,8 @@
 				FB27E5722CF55E9800558096 /* MLClient.swift in Sources */,
 				FB27E5762CF55ED400558096 /* MultipartRequest.swift in Sources */,
 				D9112D962D069111002CDD9E /* TrayHistoryViewController.swift in Sources */,
-				D9112D9C2D0951BD002CDD9E /* SharedImageModel.swift in Sources */,
+				D9112DA02D09D372002CDD9E /* TrayDetailViewController.swift in Sources */,
+				D9112D9C2D0951BD002CDD9E /* SharedDataModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,14 +316,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = SL7HQTQV6F;
+				DEVELOPMENT_TEAM = 39H8V3866P;
 				INFOPLIST_FILE = HTTPSwiftExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = chiph.mlaas;
+				PRODUCT_BUNDLE_IDENTIFIER = "chiph.mlaas-wilma2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -325,14 +333,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = SL7HQTQV6F;
+				DEVELOPMENT_TEAM = 39H8V3866P;
 				INFOPLIST_FILE = HTTPSwiftExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = chiph.mlaas;
+				PRODUCT_BUNDLE_IDENTIFIER = "chiph.mlaas-wilma2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};

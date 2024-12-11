@@ -44,6 +44,7 @@
                                 </collectionViewCellContentView>
                                 <connections>
                                     <outlet property="imageView" destination="cGM-Ni-kEd" id="Use-qK-m0G"/>
+                                    <segue destination="zIA-Ch-9tm" kind="show" identifier="showTrayDetailViewController" id="GCu-kx-Q9o"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -62,6 +63,16 @@
                 </collectionViewFlowLayout>
             </objects>
             <point key="canvasLocation" x="750.38167938931292" y="-102.11267605633803"/>
+        </scene>
+        <!--Tray_Detail-->
+        <scene sceneID="a27-qV-g8n">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Tray_Detail" storyboardName="Tray_Detail" referencedIdentifier="Tray_Detail" id="zIA-Ch-9tm" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Kj1-B3-Wl1"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sss-wl-eri" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1463" y="-90"/>
         </scene>
     </scenes>
     <resources>

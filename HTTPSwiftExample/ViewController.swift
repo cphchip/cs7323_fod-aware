@@ -13,7 +13,7 @@
 import AVFoundation
 import UIKit
 
-class ViewController: UIViewController, AVCapturePhotoCaptureDelegate
+class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCaptureDelegate
 {
 
     //Ref Cite:  ChatGPT
@@ -86,7 +86,7 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate
         }
         else if segue.identifier == "ShowTrayHistoryViewController", // Match the identifier of the segue
            let trayHistoryVC = segue.destination as? TrayHistoryViewController {
-            trayHistoryVC.objectImages = SharedImageModel.sharedImages.trayImages // Pass images
+            trayHistoryVC.objectImages = SharedDataModel.sharedData.trayImages // Pass images
         }
     }
     

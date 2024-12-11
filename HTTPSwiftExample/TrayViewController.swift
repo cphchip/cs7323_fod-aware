@@ -57,18 +57,6 @@ class TrayViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "ShowTrayHistoryViewController" {
-//            let destinationVC = segue.destination as? TrayHistoryViewController
-//            guard let destinationVC = destinationVC,
-//                  let combined_qrCodeAndTray_Image = combinedImageView.image else {
-//                print("Either destinationVC or combinedImageView.image is nil")
-//                return
-//            }
-//            
-//            destinationVC.objectImage = combined_qrCodeAndTray_Image
-//        }
-//    }
     @IBAction func createQRCode(_ sender: UIButton) {
         // Example: Using a UUID (Universally Unique Identifier):
         let qrCodeText = UUID().uuidString
@@ -130,8 +118,8 @@ class TrayViewController: UIViewController {
     @IBAction func createNewBaseline(_ sender: UIButton) {
         //let newImage = UIImage(named: "sample.png") // Replace this with your actual image
         let newImage = combinedImageView.image ?? defaultObjectImage
-        SharedImageModel.sharedImages.trayImages.append(newImage) // Add the image to the shared data model
-        print("Image added to trayImages: \(SharedImageModel.sharedImages.trayImages.count)")
+        SharedDataModel.sharedData.trayImages.append(newImage) // Add the image to the shared data model
+        print("Image added to trayImages: \(SharedDataModel.sharedData.trayImages.count)")
     }
     
     /*

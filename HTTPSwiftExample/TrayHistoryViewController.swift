@@ -48,7 +48,20 @@ class TrayHistoryViewController: UICollectionViewController {
         }
     }
     
-
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //let selectedImage = objectImages[indexPath.item]
+       // performSegue(withIdentifier: "showTrayDetailViewController", sender: selectedImage)
+        // No need to performSegue here since the storyboard handles it
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showTrayDetailViewController",
+           let detailVC = segue.destination as? TrayDetailViewController,
+           let indexPath = collectionView.indexPathsForSelectedItems?.first{
+            detailVC.objectImage = objectImages[indexPath.item]
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

@@ -1,5 +1,5 @@
 //
-//  SharedImageModel.swift
+//  SharedDataModel.swift
 //  HTTPSwiftExample
 //
 //  Created by Wilma Davis on 12/10/24.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class SharedImageModel {
-    static let sharedImages = SharedImageModel()
+class SharedDataModel {
+    static let sharedData = SharedDataModel()
     var trayImages: [UIImage] = []
 
     private init() {} // Prevents other instances from being created
