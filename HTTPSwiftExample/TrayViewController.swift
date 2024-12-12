@@ -64,12 +64,13 @@ class TrayViewController: UIViewController {
         
         if let qrCodeImage = generateQRCode(from: qrCodeText) {
             // Combine the object image and QR code
-            let qrCodeSize = CGSize(width: 50, height:50) // Adjust size as needed
-            let qrCodePosition = CGPoint(x: (objectImage?.size.width ?? 100) - 110, y: (objectImage?.size.height ?? 100) - 110) // Bottom-right corner
-            if let combinedImage = combineImages(objectImage: objectImage ?? defaultObjectImage, qrCodeImage: qrCodeImage, qrCodeSize: qrCodeSize, qrCodePosition: qrCodePosition) {
+            let qrCodeSize = CGSize(width: 100, height:100) // Adjust size as needed
+            let qrCodePosition = CGPoint(x: (objectImage?.size.width ?? 200) - 110, y: (objectImage?.size.height ?? 200) - 110) // Bottom-right corner
+            //if let combinedImage = combineImages(objectImage: objectImage ?? defaultObjectImage, qrCodeImage: qrCodeImage, qrCodeSize: qrCodeSize, qrCodePosition: qrCodePosition) {
                 // Display the combined image
-                combinedImageView.image = combinedImage
-            }
+              //  combinedImageView.image = combinedImage
+            //}
+            combinedImageView.image = qrCodeImage
         }
     }
     
@@ -98,29 +99,31 @@ class TrayViewController: UIViewController {
         return nil
     }
     
-    // Combine the object image with the QR code
-    func combineImages(objectImage: UIImage, qrCodeImage: UIImage, qrCodeSize: CGSize, qrCodePosition: CGPoint) -> UIImage? {
-        let canvasSize = objectImage.size
-        UIGraphicsBeginImageContextWithOptions(canvasSize, false, 0.0)
-        defer { UIGraphicsEndImageContext() }
-
-        // Draw the object image
-        objectImage.draw(in: CGRect(origin: .zero, size: canvasSize))
-
-        // Draw the QR code
-        let qrCodeRect = CGRect(origin: qrCodePosition, size: qrCodeSize)
-        qrCodeImage.draw(in: qrCodeRect)
-
-        // Get the combined image
-        return UIGraphicsGetImageFromCurrentImageContext()
-    }
+//    // Combine the object image with the QR code
+//    func combineImages(objectImage: UIImage, qrCodeImage: UIImage, qrCodeSize: CGSize, qrCodePosition: CGPoint) -> UIImage? {
+//        let canvasSize = objectImage.size
+//        UIGraphicsBeginImageContextWithOptions(canvasSize, false, 0.0)
+//        defer { UIGraphicsEndImageContext() }
+//
+//        // Draw the object image
+//        objectImage.draw(in: CGRect(origin: .zero, size: canvasSize))
+//
+//        // Draw the QR code
+//        let qrCodeRect = CGRect(origin: qrCodePosition, size: qrCodeSize)
+//        qrCodeImage.draw(in: qrCodeRect)
+//
+//        // Get the combined image
+//        return UIGraphicsGetImageFromCurrentImageContext()
+//    }
     
-    @IBAction func createNewBaseline(_ sender: UIButton) {
-        //let newImage = UIImage(named: "sample.png") // Replace this with your actual image
-        let newImage = combinedImageView.image ?? defaultObjectImage
-        SharedDataModel.sharedData.trayImages.append(newImage) // Add the image to the shared data model
-        print("Image added to trayImages: \(SharedDataModel.sharedData.trayImages.count)")
-    }
+//    @IBAction func createNewBaseline(_ sender: UIButton) {
+//        //let newImage = UIImage(named: "sample.png") // Replace this with your actual image
+//        let newImage = combinedImageView.image ?? defaultObjectImage
+//        SharedDataModel.sharedData.trayImages.append(newImage) // Add the image to the shared data model
+//        print("Image added to trayImages: \(SharedDataModel.sharedData.trayImages.count)")
+//    }
+    
+    //Print QR Code
     
     /*
     // MARK: - Navigation
