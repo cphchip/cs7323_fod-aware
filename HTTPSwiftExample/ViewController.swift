@@ -45,8 +45,28 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
     @IBOutlet weak var cameraFeedView: UIView!
     @IBOutlet weak var StartStopCamera: UIButton!
     @IBOutlet weak var imgCaptureButton: UIButton!
-    @IBOutlet weak var imageCountLabel: UILabel!
-
+    
+    let defaultObjectImage = UIGraphicsImageRenderer(size: CGSize(width: 200, height: 200)).image { context in
+        UIColor.lightGray.setFill() // Default to white background
+        context.fill(CGRect(x: 0, y: 0, width: 200, height: 200))
+        
+        // Configure the text attributes
+        let text = "No Image"
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 20, weight: .bold),
+            .foregroundColor: UIColor.darkGray
+        ]
+        
+        // Calculate the text size and position
+        let textSize = text.size(withAttributes: attributes)
+        let textPosition = CGPoint(
+            x: (200 - textSize.width) / 2, // Center horizontally
+            y: (200 - textSize.height) / 2 // Center vertically
+        )
+        
+        // Draw the text
+        text.draw(at: textPosition, withAttributes: attributes)
+    }
 
     // MARK: View Controller Life Cycle
     override func viewDidLoad() {
@@ -74,15 +94,10 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowTrayViewController" {
-            let destinationVC = segue.destination as? TrayViewController
-            //destinationVC?.objectImage = capturedImageView.image // Pass the object image
-            guard let destinationVC = destinationVC,
-                  let capturedImage = capturedImageView.image else {
-                print("Either destinationVC or capturedImageView.image is nil")
+            guard let destinationVC = segue.destination as? TrayViewController else {
+                print("destinationVC is nil")
                 return
             }
-            
-            destinationVC.objectImage = capturedImage
         }
         else if segue.identifier == "ShowTrayHistoryViewController", // Match the identifier of the segue
            let trayHistoryVC = segue.destination as? TrayHistoryViewController {
@@ -236,19 +251,13 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
         if let dsid = client.getLabel(byName: currentObjectSelected)?.dsid {
             print("VC-uploadTrainingImage selected: dsid = \(dsid)")
             client.uploadImage(image: currentResizedImage, dsid: dsid)
-            imageCount += 1
-            imageCountLabel.text = "\(imageCount) / 5"
+//            imageCount += 1
+//            imageCountLabel.text = "\(imageCount) / 5"
 
         }
     }
 
 
-
-
-    @IBAction func objSelectionChange(_ sender: Any) {
-        imageCountLabel.text = "0 / 5"
-        imageCount = 0
-    }
     
     //TODO: Need to update function name for Final Proj
     @IBAction func uploadImageClicked(_ sender: Any) {
