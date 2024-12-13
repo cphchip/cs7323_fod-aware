@@ -58,19 +58,12 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="New">
-                                            <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="titleFontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
                                         </buttonConfiguration>
                                         <connections>
                                             <segue destination="D94-db-Su2" kind="push" identifier="ShowTrayViewController" id="yTA-pv-Jff"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Storage Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIN-46-jbw">
-                                        <rect key="frame" x="77" y="110" width="248" height="41"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="34"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hnx-72-uCy">
                                         <rect key="frame" x="312" y="163" width="80" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -79,7 +72,7 @@
                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <buttonConfiguration key="configuration" style="filled" title="History">
-                                            <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="titleFontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
                                         </buttonConfiguration>
                                         <connections>
                                             <segue destination="kwR-bV-UzH" kind="push" identifier="ShowTrayHistoryViewController" id="fRv-ia-KqA"/>
@@ -90,9 +83,16 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Inventory Check">
-                                            <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="titleFontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
                                         </buttonConfiguration>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Storage Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIN-46-jbw">
+                                        <rect key="frame" x="64" y="108" width="266" height="47"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="34"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -103,8 +103,15 @@
                                         <rect key="frame" x="269" y="0.0" width="125" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title=" Photo Capture">
-                                            <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
+                                        <buttonConfiguration key="configuration" style="filled">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content=" Photo Capture">
+                                                    <attributes>
+                                                        <font key="NSFont" size="17" name="AvenirNext-DemiBold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="capturePhotoButtonTapped:" destination="RtX-8b-nDc" eventType="touchUpInside" id="8ch-Gg-2K5"/>
@@ -118,8 +125,15 @@
                                         <state key="normal" title="Start Camera">
                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
-                                        <buttonConfiguration key="configuration" style="filled" title="Start Camera">
-                                            <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
+                                        <buttonConfiguration key="configuration" style="filled">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Start Camera">
+                                                    <attributes>
+                                                        <font key="NSFont" size="17" name="AvenirNext-DemiBold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="startStopCameraOps:" destination="RtX-8b-nDc" eventType="touchUpInside" id="iCV-tO-eGL"/>
@@ -129,7 +143,16 @@
                                         <rect key="frame" x="136" y="101" width="130" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Upload Image"/>
+                                        <buttonConfiguration key="configuration" style="filled">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Upload Image">
+                                                    <attributes>
+                                                        <font key="NSFont" size="17" name="AvenirNext-DemiBold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </buttonConfiguration>
                                         <connections>
                                             <action selector="uploadImageSelected:" destination="RtX-8b-nDc" eventType="touchUpInside" id="YI9-fT-2W8"/>
                                         </connections>
