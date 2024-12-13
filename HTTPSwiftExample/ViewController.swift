@@ -26,7 +26,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
     // MARK: Class Properties
 
     // interacting with server
-    let client = MLClient()  // how we will interact with the server
+    let client = APIClient()  // how we will interact with the server
 
     // Photo capture properties
     var captureSession: AVCaptureSession!
@@ -35,7 +35,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
     var isCameraRunning = false  // To track the camera state
 
 
-    var imageCount = 0                    // count of images taken
     var currentObjectSelected = "none"
     var currentResizedImage: UIImage!     // current image to process
 
@@ -83,13 +82,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
 
         // use delegation for interacting with client
         //client.delegate = self
-
-        // Get the labels from the server
-        //let labelDataSets = client.getLabels()
-
-        // Extract labels from array of DataSets - [Dataset]
-       // let labels = labelDataSets.map { $0.label }
-
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -243,22 +235,18 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
         //capturedImageView.isHidden = true // Hide the image view
         view.backgroundColor = .white  // Reset to the initial background color
     }
-
     
-    
-    //TODO: Need to update function name for Final Proj
-    func uploadImage() {
-        //feedbackLabel.text = "Uploading!"
-
-            print("VC-uploadImage selected")
-        
-        //TODO: REPLACE WITH Model interface
-            client.uploadImage(image: currentResizedImage, dsid: 1)
-    }
-
-
     @IBAction func uploadImageSelected(_ sender: Any) {
         uploadImage()
+    }
+    
+    //UpLoad Image
+    func uploadImage() {
+        //feedbackLabel.text = "Uploading!"
+        
+        print("VC-uploadImage selected")
+        let storageLocationID = UUID()  // Or your specific UUIDe
+        client.uploadImage(image: currentResizedImage, forStorageLocation: storageLocationID)
     }
 
 }
