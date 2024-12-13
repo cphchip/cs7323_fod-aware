@@ -12,9 +12,9 @@ struct NewBaselineResponse: Decodable {
     let status: String
     let sloc: StorageLocation
 }
-struct ImageCheckResponse: Decodable {
+struct InventoryCheckResponse: Decodable {
     let status: String
-    let check: ImageCheck
+    let inventory: InventoryCheck
     let sloc: StorageLocation
 }
 
@@ -24,7 +24,7 @@ struct ErrorResponse: Decodable {
 }
 
 enum ImageUploadResponse {
-    case imageChecked(ImageCheckResponse)
+    case inventoryChecked(InventoryCheckResponse)
     case baselineAdded(NewBaselineResponse)
 }
 
@@ -38,8 +38,8 @@ extension ImageUploadResponse: Decodable {
         let status = try container.decode(String.self, forKey: .status)
 
         switch status {
-        case "image_checked":
-            self = .imageChecked(try ImageCheckResponse(from: decoder))
+        case "inventory_checked":
+            self = .inventoryChecked(try InventoryCheckResponse(from: decoder))
         case "baseline_added":
             self = .baselineAdded(try NewBaselineResponse(from: decoder))
         case "error":
@@ -84,7 +84,7 @@ extension CreateStorageLocationResponse: Decodable {
 struct HistoryResponse: Decodable {
     let status: String
     let sloc: StorageLocation
-    let history: [ImageCheck]
+    let history: [InventoryCheck]
 }
 
 enum FetchHistoryResponse {

@@ -19,7 +19,7 @@ class APIClient {
 
     // MARK: - Delegates
     /// Delegate for image-related operations
-    public var imageDelegate: ImageDelegate?
+    public var inventoryDelegate: InventoryDelegate?
     
     /// Delegate for creating new storage locations
     public var newStorageLocationDelegate: NewStorageLocationDelegate?
@@ -60,14 +60,14 @@ class APIClient {
                     sloc_id: sloc_id, image: image)
                 switch response {
                 // the storage location already has a baseline, so we check the image
-                case .imageChecked(let imageCheckResponse):
+                case .inventoryChecked(let inventoryCheckResponse):
                     // Notify the delegate of the image check
-                    imageDelegate?.didCheckImage(
-                        imageCheck: imageCheckResponse.check)
+                    inventoryDelegate?.didCheckInventory(
+                        inventoryCheck: inventoryCheckResponse.inventory)
                 // the storage location did not have a baseline, so we create one
                 case .baselineAdded(let newBaselineResponse):
                     // Notify the delegate of the new baseline
-                    imageDelegate?.didCreateBaseline(
+                    inventoryDelegate?.didCreateBaseline(
                         storageLocation: newBaselineResponse.sloc)
                 }
             } catch {

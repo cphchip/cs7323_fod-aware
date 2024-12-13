@@ -21,7 +21,7 @@ struct StorageLocation: Decodable, Identifiable {
 }
 
 /// Represents an image check
-struct ImageCheck: Decodable, Identifiable {
+struct InventoryCheck: Decodable, Identifiable {
     // unique identifier for the image check
     let id: UUID
     // whether the image matches the baseline

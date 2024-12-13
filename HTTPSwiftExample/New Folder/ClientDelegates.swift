@@ -5,9 +5,9 @@
 //  Created by Ches Smith on 12/12/24.
 
 /// used to notify the delegate when the image has been uploaded
-protocol ImageDelegate: AnyObject {
+protocol InventoryDelegate: AnyObject {
     func didCreateBaseline(storageLocation: StorageLocation)
-    func didCheckImage(imageCheck: ImageCheck)
+    func didCheckInventory(inventoryCheck: InventoryCheck)
     func didFailImageUpload(error: APIError)
 }
 
@@ -25,6 +25,6 @@ protocol StorageLocationsDelegate: AnyObject {
 
 /// used to notify the delegate when history has been fetched
 protocol HistoryDelegate: AnyObject {
-    func didFetchHistory(storageLocation: StorageLocation, history: [ImageCheck])
+    func didFetchHistory(storageLocation: StorageLocation, history: [InventoryCheck])
     func didFailFetchingHistory(error: APIError)
 }
