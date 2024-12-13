@@ -17,6 +17,27 @@ class TrayViewController: UIViewController {
     
     @IBOutlet weak var qrCodeImageView: UIImageView!
 
+    let defaultObjectImage = UIGraphicsImageRenderer(size: CGSize(width: 200, height: 200)).image { context in
+        UIColor.lightGray.setFill() // Default to white background
+        context.fill(CGRect(x: 0, y: 0, width: 200, height: 200))
+        
+        // Configure the text attributes
+        let text = "No Image"
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 20, weight: .bold),
+            .foregroundColor: UIColor.darkGray
+        ]
+        
+        // Calculate the text size and position
+        let textSize = text.size(withAttributes: attributes)
+        let textPosition = CGPoint(
+            x: (200 - textSize.width) / 2, // Center horizontally
+            y: (200 - textSize.height) / 2 // Center vertically
+        )
+        
+        // Draw the text
+        text.draw(at: textPosition, withAttributes: attributes)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,9 +81,66 @@ class TrayViewController: UIViewController {
         }
         return nil
     }
-
     
     //Print QR Code
+    @IBAction func printQRCode(_ sender: UIButton) {
+        // Render the QR code for printing
+        let printableImage = renderImageForPrinting(qrCodeImageView.image ?? defaultObjectImage)
+        
+        let padding: CGFloat = 250.0
+        let printableImageWithPadding = addPadding(to: printableImage, padding: padding) ?? defaultObjectImage
+        
+        // Resize the QR code to make it smaller
+        let targetSize = CGSize(width: 150, height: 150) // Adjust the size as needed
+        guard let resizedImage = resizeImage(printableImageWithPadding, targetSize: targetSize) else {
+            print("Failed to resize QR code")
+            return
+        }
+
+        let printController = UIPrintInteractionController.shared
+        let printInfo = UIPrintInfo(dictionary: nil)
+        printInfo.jobName = "Print QR Code"
+        printInfo.outputType = .photo
+        printController.printInfo = printInfo
+
+        // Use the resized image as the printing item
+        printController.printingItem = resizedImage
+
+        // Present the print controller
+        printController.present(animated: true) { (controller, completed, error) in
+            if completed {
+                print("Printing successful!")
+            } else if let error = error {
+                print("Error printing: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    //helper function to generate a printable Image
+    func renderImageForPrinting(_ image: UIImage) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: image.size)
+        return renderer.image { _ in
+            image.draw(in: CGRect(origin: .zero, size: image.size))
+        }
+    }
+    
+    //helper function to scale the QR code image
+    func resizeImage(_ image: UIImage, targetSize: CGSize) -> UIImage? {
+        let renderer = UIGraphicsImageRenderer(size: targetSize)
+        return renderer.image { _ in
+            image.draw(in: CGRect(origin: .zero, size: targetSize))
+        }
+    }
+    
+    func addPadding(to image: UIImage, padding: CGFloat) -> UIImage? {
+        let newSize = CGSize(width: image.size.width + 2 * padding, height: image.size.height + 2 * padding)
+        let renderer = UIGraphicsImageRenderer(size: newSize)
+        return renderer.image { _ in
+            UIColor.white.setFill()
+            UIRectFill(CGRect(origin: .zero, size: newSize))
+            image.draw(in: CGRect(x: padding, y: padding, width: image.size.width, height: image.size.height))
+        }
+    }
     
     /*
     // MARK: - Navigation
