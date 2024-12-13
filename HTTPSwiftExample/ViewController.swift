@@ -244,24 +244,21 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
         view.backgroundColor = .white  // Reset to the initial background color
     }
 
+    
+    
     //TODO: Need to update function name for Final Proj
-    func uploadTrainingImage() {
+    func uploadImage() {
         //feedbackLabel.text = "Uploading!"
 
-        if let dsid = client.getLabel(byName: currentObjectSelected)?.dsid {
-            print("VC-uploadTrainingImage selected: dsid = \(dsid)")
-            client.uploadImage(image: currentResizedImage, dsid: dsid)
-//            imageCount += 1
-//            imageCountLabel.text = "\(imageCount) / 5"
-
-        }
+            print("VC-uploadImage selected")
+        
+        //TODO: REPLACE WITH Model interface
+            client.uploadImage(image: currentResizedImage, dsid: 1)
     }
 
 
-    
-    //TODO: Need to update function name for Final Proj
-    @IBAction func uploadImageClicked(_ sender: Any) {
-            uploadTrainingImage()
+    @IBAction func uploadImageSelected(_ sender: Any) {
+        uploadImage()
     }
 
 }
