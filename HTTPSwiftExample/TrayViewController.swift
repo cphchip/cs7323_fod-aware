@@ -10,11 +10,8 @@ import UIKit
 
 // Protocol to send data back to main View Controller
 protocol TrayViewControllerDelegate: AnyObject {
-    func didSend_sloc_UUID (_ sloc_UUID: UUID)
     func didSend_sloc_name (_ sloc_name: String)
     func didSend_sloc_description (_ sloc_description: String)
-    func didSend_date_created (_ date_created: Date)
-    //func createStorageLoc()
 }
 
 class TrayViewController: UIViewController {
@@ -33,6 +30,13 @@ class TrayViewController: UIViewController {
     // date that the storage location was created
     var new_date_created: Date?
     
+    
+    @IBOutlet weak var slocName: UILabel!
+    
+ 
+    @IBOutlet weak var slocDescription: UILabel!
+    
+    
     @IBOutlet weak var qrCodeImageView: UIImageView!
     
     weak var delegate: TrayViewControllerDelegate? // Delegate reference
@@ -42,14 +46,21 @@ class TrayViewController: UIViewController {
         // Set up any initial configurations
         qrCodeImageView.contentMode = .scaleAspectFit
 
+
         // Do any additional setup after loading the view.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showTrayModal", // Match the identifier of your segue
+           let modalVC = segue.destination as? TrayModalViewController {
+            modalVC.delegate = self // Set the delegate
+        }
     }
     
     @IBAction func createQRCode(_ sender: UIButton) {
         // Example: Using a UUID (Universally Unique Identifier):
         let qrCode = UUID()
         let qrCodeText = qrCode.uuidString
-        delegate?.didSend_sloc_UUID(qrCode)
         
         if let qrCodeImage = generateQRCode(from: qrCodeText) {
             // Display QRCode Image
@@ -162,26 +173,26 @@ class TrayViewController: UIViewController {
     */
 
 }
-//protocol TrayModalViewControllerDelegate: AnyObject {
-//    func didSend_sloc_name (_ sloc_name: String)
-//    func didSend_sloc_description (_ sloc_description: String)
-//    func didSend_date_created (_ date_created: Date)
-//}
+
 // MARK: - TrayModalViewControllerDelegate
 extension TrayViewController: TrayModalViewControllerDelegate {
     func didSend_sloc_name (_ sloc_name: String) {
         new_sloc_name = sloc_name
         print("trayVC: new_sloc_name = \(String(describing: new_sloc_name))")
+        
+        // Populate sloc_name UILabel
+        slocName.text = new_sloc_name
+        
         delegate?.didSend_sloc_name(new_sloc_name ?? "")
     }
+    
     func didSend_sloc_description (_ sloc_description: String) {
         new_sloc_description = sloc_description
         print("trayVC: new_sloc_description = \(String(describing: new_sloc_description))")
+        
+        // Populate sloc_description UILabel
+        slocDescription.text = new_sloc_description
+        
         delegate?.didSend_sloc_description(new_sloc_description ?? "")
-    }
-    func didSend_date_created (_ date_created: Date) {
-        new_date_created = date_created
-        print("trayVC: new_date_created = \(String(describing: new_date_created)))")
-        delegate?.didSend_date_created(new_date_created ?? Date())
     }
 }

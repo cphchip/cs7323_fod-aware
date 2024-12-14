@@ -60,6 +60,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
     @IBOutlet weak var cameraFeedView: UIView!
     @IBOutlet weak var StartStopCamera: UIButton!
     @IBOutlet weak var imgCaptureButton: UIButton!
+    @IBOutlet weak var feedbackLabel: UILabel!
     
     // MARK: View Controller Life Cycle
     override func viewDidLoad() {
@@ -256,12 +257,14 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
         
         if newBaseline {
             print("VC-uploadImage - Uploading New Baseline Image")
+            feedbackLabel.text =  "Uploading New Baseline Image!"
             let storageLocationID = new_sloc_UUID ?? Shared_VCdata.sharedData.defaultUUID // new sloc UUID
             client.uploadImage(image: currentResizedImage, forStorageLocation: storageLocationID)
             newBaseline = false
         }
         else{
             print("VC-uploadImage - Uploading Inventory Check Image")
+            feedbackLabel.text =  "Uploading Inventory Check Image!"
             //This is an inventory check, so Scan QR code to retrive the sloc UUID
             
             //Retrieve the existing sloc UUID from the QR code in the image
@@ -270,8 +273,10 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
                 DispatchQueue.main.async {
                     if let uuid = uuid {
                        print("Success", "UUID Found: \(uuid.uuidString)")
+                        self.feedbackLabel.text =  "Success - UUID found in QR Code Scan!"
                     } else {
                         print("Error", "No valid UUID found in the QR code.")
+                        self.feedbackLabel.text =  "Error - No valid UUID found in QR Code Scan!"
                     }
                     self.existing_sloc_UUID = uuid
                 }
@@ -280,12 +285,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
         }
 
     }
-    
-    @IBAction func inventoryCheckSelected(_ sender: UIButton) {
-
-    }
-    
-
 }
 
 //MARK: APIClient Protocol Required Functions
@@ -335,10 +334,6 @@ extension ViewController: HistoryDelegate {
 
 // MARK: - TrayViewControllerDelegate
 extension ViewController: TrayViewControllerDelegate {
-    func didSend_sloc_UUID (_ sloc_UUID: UUID) {
-        new_sloc_UUID = sloc_UUID
-        print("VC: new_sloc_UUID = \(String(describing: new_sloc_UUID))")
-    }
     func didSend_sloc_name (_ sloc_name: String) {
         new_sloc_name = sloc_name
         print("VC: new_sloc_name = \(String(describing: new_sloc_name))")
@@ -346,18 +341,5 @@ extension ViewController: TrayViewControllerDelegate {
     func didSend_sloc_description (_ sloc_description: String) {
         new_sloc_description = sloc_description
         print("VC: new_sloc_description = \(String(describing: new_sloc_description))")
-    }
-    func didSend_date_created (_ date_created: Date) {
-        new_date_created = date_created
-        print("VC: new_date_created = \(String(describing: new_date_created)))")
-    }
-}
-
-// MARK: - MainModalViewControllerDelegate
-extension ViewController: MainModalViewControllerDelegate {
-
-    func didSend_existing_date_created (_ date_created: Date) {
-        new_date_created = date_created
-        print("VC: new_date_created = \(String(describing: new_date_created)))")
     }
 }
