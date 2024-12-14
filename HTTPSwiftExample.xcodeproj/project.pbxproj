@@ -20,12 +20,6 @@
 		D9112D9C2D0951BD002CDD9E /* Shared_VCdata.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D9B2D0951BD002CDD9E /* Shared_VCdata.swift */; };
 		D9112D9E2D09D11D002CDD9E /* Tray_Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9112D9D2D09D11D002CDD9E /* Tray_Detail.storyboard */; };
 		D9112DA02D09D372002CDD9E /* TrayDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D9F2D09D372002CDD9E /* TrayDetailViewController.swift */; };
-		D9E9FC622D0CC24F00132146 /* APIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E9FC5C2D0CC24F00132146 /* APIModel.swift */; };
-		D9E9FC632D0CC24F00132146 /* APIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E9FC5E2D0CC24F00132146 /* APIUtils.swift */; };
-		D9E9FC642D0CC24F00132146 /* MultipartRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E9FC602D0CC24F00132146 /* MultipartRequest.swift */; };
-		D9E9FC652D0CC24F00132146 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E9FC5B2D0CC24F00132146 /* APIClient.swift */; };
-		D9E9FC662D0CC24F00132146 /* APIResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E9FC5D2D0CC24F00132146 /* APIResponses.swift */; };
-		D9E9FC672D0CC24F00132146 /* ClientDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E9FC5F2D0CC24F00132146 /* ClientDelegates.swift */; };
 		D9E9FC772D0D52B900132146 /* TrayModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E9FC762D0D52B900132146 /* TrayModalViewController.swift */; };
 		D9E9FD762D0DE00700132146 /* QRCodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E9FD752D0DE00700132146 /* QRCodeScanner.swift */; };
 /* End PBXBuildFile section */
@@ -46,12 +40,6 @@
 		D9112D9B2D0951BD002CDD9E /* Shared_VCdata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared_VCdata.swift; sourceTree = "<group>"; };
 		D9112D9D2D09D11D002CDD9E /* Tray_Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tray_Detail.storyboard; sourceTree = "<group>"; };
 		D9112D9F2D09D372002CDD9E /* TrayDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayDetailViewController.swift; sourceTree = "<group>"; };
-		D9E9FC5B2D0CC24F00132146 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
-		D9E9FC5C2D0CC24F00132146 /* APIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIModel.swift; sourceTree = "<group>"; };
-		D9E9FC5D2D0CC24F00132146 /* APIResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponses.swift; sourceTree = "<group>"; };
-		D9E9FC5E2D0CC24F00132146 /* APIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUtils.swift; sourceTree = "<group>"; };
-		D9E9FC5F2D0CC24F00132146 /* ClientDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDelegates.swift; sourceTree = "<group>"; };
-		D9E9FC602D0CC24F00132146 /* MultipartRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartRequest.swift; sourceTree = "<group>"; };
 		D9E9FC762D0D52B900132146 /* TrayModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayModalViewController.swift; sourceTree = "<group>"; };
 		D9E9FD752D0DE00700132146 /* QRCodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScanner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,11 +78,8 @@
 		B67483D71ACA2D6800A9970E /* HTTPSwiftExample */ = {
 			isa = PBXGroup;
 			children = (
-				D9E9FC612D0CC24F00132146 /* APIModel */,
-				B67483DA1ACA2D6800A9970E /* AppDelegate.swift */,
 				FB9FD6AA2D0C03030056D92B /* Model */,
 				B67483DA1ACA2D6800A9970E /* AppDelegate.swift */,
-				B67483DC1ACA2D6800A9970E /* ViewController.swift */,
 				B67483DE1ACA2D6800A9970E /* Main.storyboard */,
 				35D932D62D0CE8B600F39C21 /* Launch Screen.storyboard */,
 				35B1C2CB2D050556003E1B39 /* new_tray.storyboard */,
@@ -120,19 +105,6 @@
 				B67483D91ACA2D6800A9970E /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		D9E9FC612D0CC24F00132146 /* APIModel */ = {
-			isa = PBXGroup;
-			children = (
-				D9E9FC5B2D0CC24F00132146 /* APIClient.swift */,
-				D9E9FC5C2D0CC24F00132146 /* APIModel.swift */,
-				D9E9FC5D2D0CC24F00132146 /* APIResponses.swift */,
-				D9E9FC5E2D0CC24F00132146 /* APIUtils.swift */,
-				D9E9FC5F2D0CC24F00132146 /* ClientDelegates.swift */,
-				D9E9FC602D0CC24F00132146 /* MultipartRequest.swift */,
-			);
-			path = APIModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,12 +194,6 @@
 				D9E9FD762D0DE00700132146 /* QRCodeScanner.swift in Sources */,
 				D9112D962D069111002CDD9E /* TrayHistoryViewController.swift in Sources */,
 				D9112DA02D09D372002CDD9E /* TrayDetailViewController.swift in Sources */,
-				D9E9FC622D0CC24F00132146 /* APIModel.swift in Sources */,
-				D9E9FC632D0CC24F00132146 /* APIUtils.swift in Sources */,
-				D9E9FC642D0CC24F00132146 /* MultipartRequest.swift in Sources */,
-				D9E9FC652D0CC24F00132146 /* APIClient.swift in Sources */,
-				D9E9FC662D0CC24F00132146 /* APIResponses.swift in Sources */,
-				D9E9FC672D0CC24F00132146 /* ClientDelegates.swift in Sources */,
 				D9112D9C2D0951BD002CDD9E /* Shared_VCdata.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
