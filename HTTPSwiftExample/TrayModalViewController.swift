@@ -47,7 +47,7 @@ class TrayModalViewController: UIViewController, UITextFieldDelegate {
             print("ModalVC: slocName: \(String(describing: textField.text))")
             slocDescription.becomeFirstResponder()
         } else {
-            print("ModalVC: slocDescription: \(String(describing: textField.text)my)")
+            print("ModalVC: slocDescription: \(String(describing: textField.text))")
             textField.resignFirstResponder() // Close the keyboard
         }
         return true
