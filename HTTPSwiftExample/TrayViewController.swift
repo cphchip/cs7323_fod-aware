@@ -14,7 +14,7 @@ protocol TrayViewControllerDelegate: AnyObject {
     func didSend_sloc_name (_ sloc_name: String)
     func didSend_sloc_description (_ sloc_description: String)
     func didSend_date_created (_ date_created: Date)
-    func createStorageLoc()
+    //func createStorageLoc()
 }
 
 class TrayViewController: UIViewController {
@@ -118,9 +118,6 @@ class TrayViewController: UIViewController {
                 // before a new storage location can be created
                 // Also, add message to print QR Code before location
                 // can be created
-                
-                //Initiate creation of the new storage location
-                self.delegate?.createStorageLoc()
                 
             } else if let error = error {
                 print("Error printing: \(error.localizedDescription)")

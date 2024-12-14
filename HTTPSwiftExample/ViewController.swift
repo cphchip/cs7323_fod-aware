@@ -46,7 +46,10 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
     
     // date that the storage location was created
     var new_date_created: Date?
-
+    
+    var newBaseline: Bool = false  //new Baseline indication
+    
+    
     // User Interface properties
     @IBOutlet weak var capturedImageView: UIImageView!
     @IBOutlet weak var cameraFeedView: UIView!
@@ -71,6 +74,8 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
         client.newStorageLocationDelegate = self
         client.storageLocationsDelegate = self
         client.historyDelegate = self
+        
+        newBaseline = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -79,6 +84,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
                 print("destinationVC is nil")
                 return
             }
+            newBaseline = true
             destinationVC.delegate =  self
         }
         else if segue.identifier == "ShowTrayHistoryViewController", // Match the identifier of the segue
@@ -227,6 +233,11 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
     }
     
     @IBAction func uploadImageSelected(_ sender: Any) {
+        if newBaseline {
+           //Initiate creation of the new storage location
+           client.createStorageLocation(withName: new_sloc_name ?? "", andDescription: new_sloc_description ?? "")
+           newBaseline = false
+        }
         uploadImage()
     }
     
@@ -304,7 +315,7 @@ extension ViewController: TrayViewControllerDelegate {
         new_date_created = date_created
         print("VC: new_date_created = \(String(describing: new_date_created)))")
     }
-    func createStorageLoc(){
-        client.createStorageLocation(withName: new_sloc_name ?? "", andDescription: new_sloc_description ?? "")
-    }
+//    func createStorageLoc(){
+//        client.createStorageLocation(withName: new_sloc_name ?? "", andDescription: new_sloc_description ?? "")
+//    }
 }
