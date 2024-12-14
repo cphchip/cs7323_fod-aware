@@ -344,7 +344,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 39H8V3866P;
+				DEVELOPMENT_TEAM = SL7HQTQV6F;
 				INFOPLIST_FILE = HTTPSwiftExample/Info.plist;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -352,7 +352,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "chiph.mlaas-wilma2";
+				PRODUCT_BUNDLE_IDENTIFIER = chiph.mlaas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -362,7 +362,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 39H8V3866P;
+				DEVELOPMENT_TEAM = SL7HQTQV6F;
 				INFOPLIST_FILE = HTTPSwiftExample/Info.plist;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -370,7 +370,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "chiph.mlaas-wilma2";
+				PRODUCT_BUNDLE_IDENTIFIER = chiph.mlaas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};

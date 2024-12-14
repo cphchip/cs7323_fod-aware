@@ -1,10 +1,12 @@
 {
   "images" : [
     {
+      "filename" : "launch_screen_img.jpg 16-34-45-279 1.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "launch_screen_img.jpg 16-34-45-279.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
