@@ -15,13 +15,12 @@ import UIKit
 
 class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCaptureDelegate
 {
-
     //Ref Cite:  ChatGPT
     // This section of code was generated with the assistance of ChatGPT, an AI language model by OpenAI.
     // Date: 11/22/24
     // Source: OpenAI's ChatGPT (https://openai.com/chatgpt)
     // Prompt: capture a picture taken with phone camera using AVFoundation
-    // Modifications: updated to integrate with Mlaas Model
+    // Modifications: updated to integrate with APIClient
 
     // MARK: Class Properties
 
@@ -34,10 +33,19 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
     var previewLayer: AVCaptureVideoPreviewLayer!
     var isCameraRunning = false  // To track the camera state
 
-
-    var currentObjectSelected = "none"
     var currentResizedImage: UIImage!     // current image to process
 
+    // unique identifier for a new storage location
+    var new_sloc_UUID: UUID?
+    
+    // name of the new storage location
+    var new_sloc_name: String?
+    
+    // description of the storage location
+    var new_sloc_description: String?
+    
+    // date that the storage location was created
+    var new_date_created: Date?
 
     // User Interface properties
     @IBOutlet weak var capturedImageView: UIImageView!
@@ -45,28 +53,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
     @IBOutlet weak var StartStopCamera: UIButton!
     @IBOutlet weak var imgCaptureButton: UIButton!
     
-    let defaultObjectImage = UIGraphicsImageRenderer(size: CGSize(width: 200, height: 200)).image { context in
-        UIColor.lightGray.setFill() // Default to white background
-        context.fill(CGRect(x: 0, y: 0, width: 200, height: 200))
-        
-        // Configure the text attributes
-        let text = "No Image"
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 20, weight: .bold),
-            .foregroundColor: UIColor.darkGray
-        ]
-        
-        // Calculate the text size and position
-        let textSize = text.size(withAttributes: attributes)
-        let textPosition = CGPoint(
-            x: (200 - textSize.width) / 2, // Center horizontally
-            y: (200 - textSize.height) / 2 // Center vertically
-        )
-        
-        // Draw the text
-        text.draw(at: textPosition, withAttributes: attributes)
-    }
-
     // MARK: View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +67,10 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
         StartStopCamera.setTitle("Start Camera", for: .normal)
 
         // use delegation for interacting with client
-        //client.delegate = self
+        client.inventoryDelegate = self
+        client.newStorageLocationDelegate = self
+        client.storageLocationsDelegate = self
+        client.historyDelegate = self
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -90,10 +79,11 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
                 print("destinationVC is nil")
                 return
             }
+            destinationVC.delegate =  self
         }
         else if segue.identifier == "ShowTrayHistoryViewController", // Match the identifier of the segue
            let trayHistoryVC = segue.destination as? TrayHistoryViewController {
-            trayHistoryVC.objectImages = SharedDataModel.sharedData.trayImages // Pass images
+            trayHistoryVC.objectImages = Shared_VCdata.sharedData.trayImages // Pass images
         }
     }
     
@@ -251,29 +241,70 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
 
 }
 
-//MARK: MLClient Protocol Required Functions
-//extension ViewController: MLClientProtocol {
-//    // function to print the labels fetched
-//    func didFetchLabels(labels: [Dataset]) {
-//        print(labels)
-//    }
-//    // function to print the label added
-//    func labelAdded(label: Dataset?, error: APIError?) {
-//        if let error = error {
-//            print(error.localizedDescription)
-//        } else {
-//            print("Label added: \(label?.label ?? "")")
-//        }
-//    }
-//    // function to indicate whether the image was uploaded successfully
-//    func uploadImageComplete(success: Bool, errMsg: String?) {
-//        if success {
-//            print("Image uploaded successfully")
-//           // feedbackLabel.text = "Image uploaded"
-//        } else {
-//            print("Image upload failed: \(errMsg ?? "")")
-//            //feedbackLabel.text = "upload failed"
-//        }
-//    }
-//    
-//}
+//MARK: APIClient Protocol Required Functions
+extension ViewController: InventoryDelegate {
+    
+    func didCreateBaseline(storageLocation: StorageLocation) {
+        print("New Baseline Created \(storageLocation.id)")
+    }
+    
+    func didCheckInventory(inventoryCheck: InventoryCheck) {
+        print("Performed Inventory Check \(inventoryCheck.id)")
+    }
+    
+    func didFailImageUpload(error: APIError) {
+        print("Image Upload Failed: \(error.localizedDescription) ")
+    }
+}
+
+/// used to notify the delegate when a new storage location has been created
+extension ViewController: NewStorageLocationDelegate {
+    func didCreateStorageLocation(storageLocation: StorageLocation){
+        print("New Storage Location Created \(storageLocation.id)")
+    }
+    func didFailCreatingStorageLocation(error: APIError){
+        print(" Failed to Create New Storage Location: \(error.localizedDescription) ")
+    }
+}
+
+extension ViewController: StorageLocationsDelegate {
+    func didFetchStorageLocations(locations: [StorageLocation]) {
+        print("Successfully Fetched StorageLocations \([locations])")
+    }
+    func didFailFetchingStorageLocations(error: APIError) {
+        print(" Failed to Fetch Storage Locations: \(error.localizedDescription) ")
+    }
+}
+
+extension ViewController: HistoryDelegate {
+    func didFetchHistory(storageLocation: StorageLocation, history: [InventoryCheck]) {
+        print("Successfully Fetched History for StorageLocation: \(storageLocation.id)")
+    }
+    func didFailFetchingHistory(error: APIError) {
+        print(" Failed to Fetch History: \(error.localizedDescription) ")
+    }
+}
+
+
+// MARK: - TrayViewControllerDelegate
+extension ViewController: TrayViewControllerDelegate {
+    func didSend_sloc_UUID (_ sloc_UUID: UUID) {
+        new_sloc_UUID = sloc_UUID
+        print("VC: new_sloc_UUID = \(String(describing: new_sloc_UUID))")
+    }
+    func didSend_sloc_name (_ sloc_name: String) {
+        new_sloc_name = sloc_name
+        print("VC: new_sloc_name = \(String(describing: new_sloc_name))")
+    }
+    func didSend_sloc_description (_ sloc_description: String) {
+        new_sloc_description = sloc_description
+        print("VC: new_sloc_description = \(String(describing: new_sloc_description))")
+    }
+    func didSend_date_created (_ date_created: Date) {
+        new_date_created = date_created
+        print("VC: new_date_created = \(String(describing: new_date_created)))")
+    }
+    func createStorageLoc(){
+        client.createStorageLocation(withName: new_sloc_name ?? "", andDescription: new_sloc_description ?? "")
+    }
+}
