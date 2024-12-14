@@ -85,6 +85,10 @@
                                         <buttonConfiguration key="configuration" style="filled" title="Inventory Check">
                                             <fontDescription key="titleFontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="17"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="inventoryCheckSelected:" destination="RtX-8b-nDc" eventType="touchUpInside" id="O22-ww-3Jy"/>
+                                            <segue destination="SUX-pn-psF" kind="modal" modalPresentationStyle="currentContext" id="TuE-Qk-NbP"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Storage Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIN-46-jbw">
                                         <rect key="frame" x="64" y="108" width="266" height="47"/>
@@ -199,6 +203,53 @@
             </objects>
             <point key="canvasLocation" x="1869" y="448"/>
         </scene>
+        <!--MainModalView Controller-->
+        <scene sceneID="fh2-JU-Vh1">
+            <objects>
+                <viewController id="SUX-pn-psF" userLabel="MainModalView Controller" customClass="MainModalViewController" customModule="HTTPSwiftExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Q2T-Xs-Ouz"/>
+                        <viewControllerLayoutGuide type="bottom" id="M98-cy-BhV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mDs-2A-3gS">
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter Date and Time of Inventory Check" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4F2-bD-28j">
+                                <rect key="frame" x="26" y="251" width="350" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="tintColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R9s-lD-vBj">
+                                <rect key="frame" x="164" y="595" width="84" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Dismiss"/>
+                                <connections>
+                                    <action selector="dismissSelected:" destination="SUX-pn-psF" eventType="touchUpInside" id="uPD-6t-1uE"/>
+                                </connections>
+                            </button>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="Rhx-wg-wi8">
+                                <rect key="frame" x="101" y="319" width="200" height="120"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="datePickerChanged:" destination="SUX-pn-psF" eventType="valueChanged" id="WZe-hh-7wA"/>
+                                </connections>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="invChk_createDate" destination="Rhx-wg-wi8" id="XUs-Mc-A5V"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rrD-7l-7XU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1131" y="991"/>
+        </scene>
         <!--new_tray-->
         <scene sceneID="5Hz-gh-Wgq">
             <objects>
@@ -216,6 +267,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
