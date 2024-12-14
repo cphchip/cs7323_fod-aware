@@ -24,6 +24,15 @@ class TrayViewController: UIViewController {
     // Source: OpenAI's ChatGPT (https://openai.com/chatgpt)
     // Prompt: generate a QR code in an app using Apple's iOS and Swift
     
+    // name of the new storage location
+    var new_sloc_name: String?
+    
+    // description of the storage location
+    var new_sloc_description: String?
+    
+    // date that the storage location was created
+    var new_date_created: Date?
+    
     @IBOutlet weak var qrCodeImageView: UIImageView!
     
     weak var delegate: TrayViewControllerDelegate? // Delegate reference
@@ -42,15 +51,12 @@ class TrayViewController: UIViewController {
         let qrCodeText = qrCode.uuidString
         delegate?.didSend_sloc_UUID(qrCode)
         
-        
-        
         if let qrCodeImage = generateQRCode(from: qrCodeText) {
             // Display QRCode Image
             qrCodeImageView.image = qrCodeImage
         }
         
-        //Initiate creation of the new storage location
-        delegate?.createStorageLoc()
+
     }
     
     // QR Code generation method
@@ -106,6 +112,16 @@ class TrayViewController: UIViewController {
         printController.present(animated: true) { (controller, completed, error) in
             if completed {
                 print("Printing successful!")
+                //TODO: Add check if name, description is nil,
+                //If name, description nil, then display a message that
+                // name and description must be filled in
+                // before a new storage location can be created
+                // Also, add message to print QR Code before location
+                // can be created
+                
+                //Initiate creation of the new storage location
+                self.delegate?.createStorageLoc()
+                
             } else if let error = error {
                 print("Error printing: \(error.localizedDescription)")
             }
@@ -148,4 +164,27 @@ class TrayViewController: UIViewController {
     }
     */
 
+}
+//protocol TrayModalViewControllerDelegate: AnyObject {
+//    func didSend_sloc_name (_ sloc_name: String)
+//    func didSend_sloc_description (_ sloc_description: String)
+//    func didSend_date_created (_ date_created: Date)
+//}
+// MARK: - TrayModalViewControllerDelegate
+extension TrayViewController: TrayModalViewControllerDelegate {
+    func didSend_sloc_name (_ sloc_name: String) {
+        new_sloc_name = sloc_name
+        print("trayVC: new_sloc_name = \(String(describing: new_sloc_name))")
+        delegate?.didSend_sloc_name(new_sloc_name ?? "")
+    }
+    func didSend_sloc_description (_ sloc_description: String) {
+        new_sloc_description = sloc_description
+        print("trayVC: new_sloc_description = \(String(describing: new_sloc_description))")
+        delegate?.didSend_sloc_description(new_sloc_description ?? "")
+    }
+    func didSend_date_created (_ date_created: Date) {
+        new_date_created = date_created
+        print("trayVC: new_date_created = \(String(describing: new_date_created)))")
+        delegate?.didSend_date_created(new_date_created ?? Date())
+    }
 }

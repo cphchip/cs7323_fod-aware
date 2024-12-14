@@ -7,6 +7,12 @@
 //
 
 import UIKit
+// Protocol to send data back to main Tray View Controller
+protocol TrayModalViewControllerDelegate: AnyObject {
+    func didSend_sloc_name (_ sloc_name: String)
+    func didSend_sloc_description (_ sloc_description: String)
+    func didSend_date_created (_ date_created: Date)
+}
 
 class TrayModalViewController: UIViewController, UITextFieldDelegate {
    
@@ -17,6 +23,7 @@ class TrayModalViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var slocCreateDate: UIDatePicker!
 
+    weak var delegate: TrayModalViewControllerDelegate? // Delegate reference
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +40,8 @@ class TrayModalViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
-        let selectedData = sender.date
+        let selectedDate = sender.date
+        delegate?.didSend_date_created(selectedDate)
     }
     
     
@@ -45,9 +53,11 @@ class TrayModalViewController: UIViewController, UITextFieldDelegate {
         // Switch focus between text fields
         if textField == slocName {
             print("ModalVC: slocName: \(String(describing: textField.text))")
+            delegate?.didSend_sloc_name(textField.text ?? "")
             slocDescription.becomeFirstResponder()
         } else {
             print("ModalVC: slocDescription: \(String(describing: textField.text))")
+            delegate?.didSend_sloc_description(textField.text ?? "")
             textField.resignFirstResponder() // Close the keyboard
         }
         return true
