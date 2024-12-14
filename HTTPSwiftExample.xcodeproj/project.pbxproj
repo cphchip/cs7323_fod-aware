@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -56,6 +56,10 @@
 		D9E9FD752D0DE00700132146 /* QRCodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScanner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		FB9FD6AA2D0C03030056D92B /* Model */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Model; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		B67483D21ACA2D6800A9970E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -88,6 +92,9 @@
 			children = (
 				D9E9FC612D0CC24F00132146 /* APIModel */,
 				B67483DA1ACA2D6800A9970E /* AppDelegate.swift */,
+				FB9FD6AA2D0C03030056D92B /* Model */,
+				B67483DA1ACA2D6800A9970E /* AppDelegate.swift */,
+				B67483DC1ACA2D6800A9970E /* ViewController.swift */,
 				B67483DE1ACA2D6800A9970E /* Main.storyboard */,
 				35D932D62D0CE8B600F39C21 /* Launch Screen.storyboard */,
 				35B1C2CB2D050556003E1B39 /* new_tray.storyboard */,
@@ -142,6 +149,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				FB9FD6AA2D0C03030056D92B /* Model */,
 			);
 			name = HTTPSwiftExample;
 			productName = HTTPSwiftExample;
