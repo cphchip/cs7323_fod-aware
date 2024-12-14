@@ -24,6 +24,7 @@ struct StorageLocation: Decodable, Identifiable {
 struct InventoryCheck: Decodable, Identifiable {
     // unique identifier for the image check
     let id: UUID
+    let inventory_complete: Bool
     // whether the image matches the baseline
     let matches_baseline: Bool
     // image url for the image being checked

@@ -72,7 +72,7 @@ class APIClient {
                 }
             } catch {
                 // Notify the delegate of the error
-                imageDelegate?.didFailImageUpload(error: error.asAPIError())
+                inventoryDelegate?.didFailImageUpload(error: error.asAPIError())
             }
         }
     }

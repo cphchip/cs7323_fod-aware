@@ -27,7 +27,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		FB9FD6AA2D0C03030056D92B /* New Folder */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "New Folder"; sourceTree = "<group>"; };
+		FB9FD6AA2D0C03030056D92B /* Model */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Model; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +60,7 @@
 		B67483D71ACA2D6800A9970E /* HTTPSwiftExample */ = {
 			isa = PBXGroup;
 			children = (
-				FB9FD6AA2D0C03030056D92B /* New Folder */,
+				FB9FD6AA2D0C03030056D92B /* Model */,
 				B67483DA1ACA2D6800A9970E /* AppDelegate.swift */,
 				B67483DC1ACA2D6800A9970E /* ViewController.swift */,
 				B67483DE1ACA2D6800A9970E /* Main.storyboard */,
@@ -96,7 +96,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				FB9FD6AA2D0C03030056D92B /* New Folder */,
+				FB9FD6AA2D0C03030056D92B /* Model */,
 			);
 			name = HTTPSwiftExample;
 			productName = HTTPSwiftExample;
