@@ -26,6 +26,8 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
 
     // interacting with server
     let client = APIClient()  // how we will interact with the server
+    
+    let qrCodeScanner = QRCodeScanner() // Initialize the scanner helper
 
     // Photo capture properties
     var captureSession: AVCaptureSession!
@@ -34,7 +36,10 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
     var isCameraRunning = false  // To track the camera state
 
     var currentResizedImage: UIImage!     // current image to process
-
+    
+    // existing sloc unique identifier
+    var existing_sloc_UUID: UUID?
+    
     // unique identifier for a new storage location
     var new_sloc_UUID: UUID?
     
@@ -233,22 +238,53 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
     }
     
     @IBAction func uploadImageSelected(_ sender: Any) {
+        print("VC-uploadImage selected")
+        
         if newBaseline {
            //Initiate creation of the new storage location
            client.createStorageLocation(withName: new_sloc_name ?? "", andDescription: new_sloc_description ?? "")
-           newBaseline = false
         }
         uploadImage()
     }
     
     //UpLoad Image
     func uploadImage() {
-        //feedbackLabel.text = "Uploading!"
+        if currentResizedImage == nil {
+            currentResizedImage = Shared_VCdata.sharedData.defaultObjectImage
+            print("Image was nil, setting to default")
+        }
         
-        print("VC-uploadImage selected")
-        let storageLocationID = UUID()  // Or your specific UUIDe
-        client.uploadImage(image: currentResizedImage, forStorageLocation: storageLocationID)
+        if newBaseline {
+            print("VC-uploadImage - Uploading New Baseline Image")
+            let storageLocationID = new_sloc_UUID ?? Shared_VCdata.sharedData.defaultUUID // new sloc UUID
+            client.uploadImage(image: currentResizedImage, forStorageLocation: storageLocationID)
+            newBaseline = false
+        }
+        else{
+            print("VC-uploadImage - Uploading Inventory Check Image")
+            //This is an inventory check, so Scan QR code to retrive the sloc UUID
+            
+            //Retrieve the existing sloc UUID from the QR code in the image
+            //Call the QR code scanner
+            qrCodeScanner.detectQRCode(in: currentResizedImage) {  uuid in
+                DispatchQueue.main.async {
+                    if let uuid = uuid {
+                       print("Success", "UUID Found: \(uuid.uuidString)")
+                    } else {
+                        print("Error", "No valid UUID found in the QR code.")
+                    }
+                    self.existing_sloc_UUID = uuid
+                }
+            }
+            client.uploadImage(image: currentResizedImage, forStorageLocation: existing_sloc_UUID ?? Shared_VCdata.sharedData.defaultUUID)
+        }
+
     }
+    
+    @IBAction func inventoryCheckSelected(_ sender: UIButton) {
+
+    }
+    
 
 }
 
@@ -315,7 +351,13 @@ extension ViewController: TrayViewControllerDelegate {
         new_date_created = date_created
         print("VC: new_date_created = \(String(describing: new_date_created)))")
     }
-//    func createStorageLoc(){
-//        client.createStorageLocation(withName: new_sloc_name ?? "", andDescription: new_sloc_description ?? "")
-//    }
+}
+
+// MARK: - MainModalViewControllerDelegate
+extension ViewController: MainModalViewControllerDelegate {
+
+    func didSend_existing_date_created (_ date_created: Date) {
+        new_date_created = date_created
+        print("VC: new_date_created = \(String(describing: new_date_created)))")
+    }
 }

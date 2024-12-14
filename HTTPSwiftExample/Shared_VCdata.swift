@@ -11,8 +11,9 @@ import UIKit
 class Shared_VCdata {
     static let sharedData = Shared_VCdata()
     var trayImages: [UIImage] = []
-    
-    
+    let defaultUUID = UUID() // random UUID to use as a default
+   
+    // Define a default Object image
     let defaultObjectImage = UIGraphicsImageRenderer(size: CGSize(width: 200, height: 200)).image { context in
             UIColor.lightGray.setFill() // Default to white background
             context.fill(CGRect(x: 0, y: 0, width: 200, height: 200))
