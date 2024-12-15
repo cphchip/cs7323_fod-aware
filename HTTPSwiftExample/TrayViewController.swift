@@ -31,7 +31,7 @@ class TrayViewController: UIViewController {
     var new_date_created: Date?
     
     // new qr code received from server for new storage location
-    var new_qr_code: UUID?
+    var new_qr_code: String?
     
     // new qr code.text used to generate QR code
     var new_qr_code_text: String?
@@ -60,7 +60,8 @@ class TrayViewController: UIViewController {
         qrCodeImageView.contentMode = .scaleAspectFit
 
         newQRcode_received = false
-
+        
+        
         // Do any additional setup after loading the view.
 
     }
@@ -83,9 +84,7 @@ class TrayViewController: UIViewController {
          //  Get QR Code text
          //let qrCode = UUID()
         if newQRcode_received { // received new storageLocation QR code?
-            if let qrCodeText = new_qr_code?.uuidString {
-                new_qr_code_text = qrCodeText
-            }
+            new_qr_code_text = new_qr_code
             
             if let qrCodeImage = generateQRCode(from: new_qr_code_text ?? "") {
                 // Display QRCode Image

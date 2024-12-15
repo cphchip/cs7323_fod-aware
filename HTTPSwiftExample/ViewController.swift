@@ -41,7 +41,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
     var existing_sloc_UUID: UUID?
     
     // unique identifier for a new storage location
-    var new_sloc_UUID: UUID?
+    var new_sloc_UUID: String?
     
     // name of the new storage location
     var new_sloc_name: String?
@@ -278,7 +278,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
             qrCodeScanner.detectQRCode(in: currentResizedImage) {  uuid in
                 DispatchQueue.main.async {
                     if let uuid = uuid {
-                       print("Success", "UUID Found: \(uuid.uuidString)")
+                       print("Success", "UUID Found: \(uuid)")
                         self.feedbackLabel.text =  "Success - UUID found in QR Code Scan!"
                         self.client.uploadImage(image: self.currentResizedImage, forStorageLocation: uuid)
                     } else {

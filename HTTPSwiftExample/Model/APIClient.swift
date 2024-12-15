@@ -74,7 +74,7 @@ class APIClient {
         }
     }
 
-    func uploadImage(image: UIImage, forStorageLocation sloc_id: UUID) {
+    func uploadImage(image: UIImage, forStorageLocation sloc_id: String) {
         Task {
             do {
                 // Perform the request
@@ -133,7 +133,7 @@ class APIClient {
 
     // MARK: - Private Methods
     
-    func performCreateStorageLocation(name: String, description: String)
+    private func performCreateStorageLocation(name: String, description: String)
         async throws -> NewStorageLocationResponse
     {
         // Validate the server URL
@@ -159,7 +159,7 @@ class APIClient {
         return try decodeResponse(data) as NewStorageLocationResponse
     }
 
-    private func performUploadImage(sloc_id: UUID, image: UIImage) async throws
+    private func performUploadImage(sloc_id: String, image: UIImage) async throws
         -> ImageUploadResponse
     {
         // Validate the server URL
@@ -175,7 +175,7 @@ class APIClient {
 
         // Prepare the multipart request
         var multipart = MultipartRequest()
-        multipart.add(key: "sloc_id", value: sloc_id.uuidString)  // Add ID
+        multipart.add(key: "sloc_id", value: sloc_id)  // Add ID
         multipart.add(
             key: "image",
             fileName: "image.jpg",
