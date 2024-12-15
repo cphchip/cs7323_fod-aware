@@ -81,6 +81,7 @@ extension APIClient {
         do {
             return try decoder.decode(T.self, from: data)
         } catch {
+            print("Error: \(error)")
             throw APIError.decodingError(error.localizedDescription)
         }
     }

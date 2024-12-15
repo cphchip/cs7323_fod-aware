@@ -9,7 +9,7 @@ import Foundation
 /// Represents a storage location
 struct StorageLocation: Decodable, Identifiable {
     // unique identifier for the storage location
-    let id: UUID
+    let id: String
     // name of the storage location
     let name: String
     // description of the storage location
@@ -24,7 +24,7 @@ struct StorageLocation: Decodable, Identifiable {
 /// Represents an image check
 struct InventoryCheck: Decodable, Identifiable {
     // unique identifier for the image check
-    let id: UUID
+    let id: String
     let inventory_complete: Bool
     // whether the image matches the baseline
     let matches_baseline: Bool
