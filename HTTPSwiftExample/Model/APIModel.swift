@@ -14,8 +14,9 @@ struct StorageLocation: Decodable, Identifiable {
     let name: String
     // description of the storage location
     let description: String
+    let baseline_added: Bool
     // image url for the baseline image
-    let image_url: String?
+    let image_name: String?
     // date that the storage location was created
     let created: Date
 }
@@ -28,7 +29,7 @@ struct InventoryCheck: Decodable, Identifiable {
     // whether the image matches the baseline
     let matches_baseline: Bool
     // image url for the image being checked
-    let image_url: String
+    let image_name: String
     // date that the image check was performed
     let created: Date
 }
