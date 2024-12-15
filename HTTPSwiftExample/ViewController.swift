@@ -277,7 +277,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
         
         if newBaseline {
            //Initiate creation of the new storage location
-           client.createStorageLocation(withName: new_sloc_name ?? "", andDescription: new_sloc_description ?? "")
+           //client.createStorageLocation(withName: new_sloc_name ?? "", andDescription: new_sloc_description ?? "")
         }
         uploadImage()
     }
@@ -292,9 +292,11 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
         if newBaseline {
             print("VC-uploadImage - Uploading New Baseline Image")
             feedbackLabel.text =  "Uploading New Baseline Image!"
-            let storageLocationID = new_sloc_UUID ?? Shared_VCdata.sharedData.defaultUUID // new sloc UUID
-            client.uploadImage(image: currentResizedImage, forStorageLocation: storageLocationID)
-            newBaseline = false
+            
+            if let storageLocationID = new_sloc_UUID {  // new sloc UUID
+                client.uploadImage(image: currentResizedImage, forStorageLocation: storageLocationID)
+                newBaseline = false
+            }
         }
         else{
             print("VC-uploadImage - Uploading Inventory Check Image")
@@ -308,14 +310,13 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
                     if let uuid = uuid {
                        print("Success", "UUID Found: \(uuid.uuidString)")
                         self.feedbackLabel.text =  "Success - UUID found in QR Code Scan!"
+                        self.client.uploadImage(image: self.currentResizedImage, forStorageLocation: uuid)
                     } else {
                         print("Error", "No valid UUID found in the QR code.")
                         self.feedbackLabel.text =  "Error - No valid UUID found in QR Code Scan!"
                     }
-                    self.existing_sloc_UUID = uuid
                 }
             }
-            client.uploadImage(image: currentResizedImage, forStorageLocation: existing_sloc_UUID ?? Shared_VCdata.sharedData.defaultUUID)
         }
 
     }
@@ -341,6 +342,7 @@ extension ViewController: InventoryDelegate {
 extension ViewController: NewStorageLocationDelegate {
     func didCreateStorageLocation(storageLocation: StorageLocation){
         print("New Storage Location Created \(storageLocation.id)")
+        new_sloc_UUID = storageLocation.id
     }
     func didFailCreatingStorageLocation(error: APIError){
         print(" Failed to Create New Storage Location: \(error.localizedDescription) ")
