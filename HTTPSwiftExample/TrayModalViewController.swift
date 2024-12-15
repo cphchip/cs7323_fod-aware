@@ -81,25 +81,6 @@ class TrayModalViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        // Switch focus between text fields
-//        if textField == slocName {
-//            print("ModalVC: slocName: \(String(describing: textField.text))")
-//            delegate?.didSend_sloc_name(textField.text ?? "")
-//            new_sloc_name = textField.text
-//            slocDescription.becomeFirstResponder()
-//        }
-//        else {
-//            print("ModalVC: slocDescription: \(String(describing: textField.text))")
-//            delegate?.didSend_sloc_description(textField.text ?? "")
-//            new_sloc_description = textField.text
-//            textField.resignFirstResponder() // Close the keyboard
-//        }
-//        return true
-//    }
-    
-    
-    
 }
 
 

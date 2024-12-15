@@ -15,14 +15,16 @@ class LocationHistoryViewController: UITableViewController {
     var current_row: Int?
     var locationImages: [UIImage] = []  //location images to pass to TrayDetail View Controller
     
+    // interacting with server
+    let client = APIClient()  // how we will interact with the server
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // use delegation for interacting with client
+        client.historyDelegate = self
         
     }
-    
-    // interacting with server
-    let client = APIClient()  // how we will interact with the server
     
     // MARK: - Table view data source
     
@@ -80,5 +82,13 @@ class LocationHistoryViewController: UITableViewController {
             
         }
         
+    }
+}
+extension LocationHistoryViewController: HistoryDelegate {
+    func didFetchHistory(storageLocation: StorageLocation, history: [InventoryCheck]) {
+        print("Successfully Fetched History for StorageLocation: \(storageLocation.id)")
+    }
+    func didFailFetchingHistory(error: APIError) {
+        print(" Failed to Fetch History: \(error.localizedDescription) ")
     }
 }

@@ -77,12 +77,14 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
 
         // use delegation for interacting with client
         client.inventoryDelegate = self
-        client.newStorageLocationDelegate = self
-        client.storageLocationsDelegate = self
-        client.historyDelegate = self
+
+
+       
         
         newBaseline = false
     }
+    
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowTrayViewController" {
@@ -308,34 +310,8 @@ extension ViewController: InventoryDelegate {
     }
 }
 
-/// used to notify the delegate when a new storage location has been created
-extension ViewController: NewStorageLocationDelegate {
-    func didCreateStorageLocation(storageLocation: StorageLocation){
-        print("New Storage Location Created \(storageLocation.id)")
-        new_sloc_UUID = storageLocation.id
-    }
-    func didFailCreatingStorageLocation(error: APIError){
-        print(" Failed to Create New Storage Location: \(error.localizedDescription) ")
-    }
-}
 
-extension ViewController: StorageLocationsDelegate {
-    func didFetchStorageLocations(locations: [StorageLocation]) {
-        print("Successfully Fetched StorageLocations \([locations])")
-    }
-    func didFailFetchingStorageLocations(error: APIError) {
-        print(" Failed to Fetch Storage Locations: \(error.localizedDescription) ")
-    }
-}
 
-extension ViewController: HistoryDelegate {
-    func didFetchHistory(storageLocation: StorageLocation, history: [InventoryCheck]) {
-        print("Successfully Fetched History for StorageLocation: \(storageLocation.id)")
-    }
-    func didFailFetchingHistory(error: APIError) {
-        print(" Failed to Fetch History: \(error.localizedDescription) ")
-    }
-}
 
 
 // MARK: - TrayViewControllerDelegate

@@ -24,13 +24,16 @@ class TrayHistoryViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // use delegation for interacting with client
+        client.storageLocationsDelegate = self
+        
+        
         // Ensure the object image is available
         //guard let objectImage = objectImage else {
         //    print("No object image provided")
         //    return
         // }
         // Ask the client to fetch the Storage Locations
-        
         client.fetchStorageLocations()
         
         // Do any additional setup after loading the view.
@@ -87,10 +90,10 @@ class TrayHistoryViewController: UICollectionViewController {
 // Subscribe to APIClient NewStorageLocation Delegate
 extension TrayHistoryViewController: StorageLocationsDelegate {
     func didFetchStorageLocations(locations: [StorageLocation]) {
-        print("StorageLocations Fetched! \(locations.count)")
+        print("TrayHistoryVC: StorageLocations Fetched! \(locations.count)")
         currentlocations = locations
     }
     func didFailFetchingStorageLocations(error: APIError) {
-        print(" Failed to Fetch StorageLocations: \(error.localizedDescription) ")
+        print(" TrayHistoryVC: Failed to Fetch StorageLocations: \(error.localizedDescription) ")
     }
 }

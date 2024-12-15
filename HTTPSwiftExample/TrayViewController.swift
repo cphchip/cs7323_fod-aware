@@ -21,6 +21,9 @@ class TrayViewController: UIViewController {
     // Source: OpenAI's ChatGPT (https://openai.com/chatgpt)
     // Prompt: generate a QR code in an app using Apple's iOS and Swift
     
+    // interacting with server
+    let client = APIClient()  // how we will interact with the server
+    
     // name of the new storage location
     var new_sloc_name: String?
     
@@ -49,12 +52,7 @@ class TrayViewController: UIViewController {
     
     weak var tray_VC_delegate: TrayViewControllerDelegate? // TrayViewControllerDelegate reference
     
-    weak var newSloc_delegate: NewStorageLocationDelegate? // StorageLocationDelegate reference
-    
     var newQRcode_received: Bool = false  //check if new QR Code received from APIClient
-    
-    // interacting with server
-    let client = APIClient()  // how we will interact with the server
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +63,7 @@ class TrayViewController: UIViewController {
         
         
         // Do any additional setup after loading the view.
+        client.newStorageLocationDelegate = self
 
     }
     
