@@ -30,6 +30,14 @@ class TrayViewController: UIViewController {
     // date that the storage location was created
     var new_date_created: Date?
     
+    // new qr code received from server for new storage location
+    var new_qr_code: UUID?
+    
+    // new qr code.text used to generate QR code
+    var new_qr_code_text: String?
+ 
+    
+    @IBOutlet weak var feedbackLabel: UILabel!
     
     @IBOutlet weak var slocName: UILabel!
     
@@ -41,11 +49,14 @@ class TrayViewController: UIViewController {
     
     weak var delegate: TrayViewControllerDelegate? // Delegate reference
     
+    var newQRcode_received: Bool = false  //check if new QR Code received from APIClient
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Set up any initial configurations
         qrCodeImageView.contentMode = .scaleAspectFit
 
+        newQRcode_received = false
 
         // Do any additional setup after loading the view.
     }
@@ -58,13 +69,21 @@ class TrayViewController: UIViewController {
     }
     
     @IBAction func createQRCode(_ sender: UIButton) {
-        // Example: Using a UUID (Universally Unique Identifier):
-        let qrCode = UUID()
-        let qrCodeText = qrCode.uuidString
-        
-        if let qrCodeImage = generateQRCode(from: qrCodeText) {
-            // Display QRCode Image
-            qrCodeImageView.image = qrCodeImage
+         //  Get QR Code text
+         //let qrCode = UUID()
+        if newQRcode_received { // received new storageLocation QR code?
+            if let qrCodeText = new_qr_code?.uuidString {
+                new_qr_code_text = qrCodeText
+            }
+            
+            if let qrCodeImage = generateQRCode(from: new_qr_code_text ?? "") {
+                // Display QRCode Image
+                qrCodeImageView.image = qrCodeImage
+            }
+            newQRcode_received = false
+        }
+        else {
+            feedbackLabel.text = "Waiting for Server Response-New StorageLocation Requested:\(String(describing: new_sloc_name))"
         }
         
 
@@ -194,5 +213,18 @@ extension TrayViewController: TrayModalViewControllerDelegate {
         slocDescription.text = new_sloc_description
         
         delegate?.didSend_sloc_description(new_sloc_description ?? "")
+    }
+}
+
+// Subscribe to APIClient NewStorageLocation Delegate
+extension TrayViewController: NewStorageLocationDelegate {
+    func didCreateStorageLocation(storageLocation: StorageLocation){
+        print("New Storage Location Created \(storageLocation.id)")
+        feedbackLabel.text = "New Storage Location Created \(storageLocation.id) - QR Code can be Created and Printed"
+        new_qr_code = storageLocation.id
+        newQRcode_received = true
+    }
+    func didFailCreatingStorageLocation(error: APIError){
+        print(" Failed to Create New Storage Location: \(error.localizedDescription) ")
     }
 }

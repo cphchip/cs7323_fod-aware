@@ -14,13 +14,21 @@ protocol TrayModalViewControllerDelegate: AnyObject {
 }
 
 class TrayModalViewController: UIViewController, UITextFieldDelegate {
-   
+    // name of the new storage location
+    var new_sloc_name: String?
+    
+    // description of the storage location
+    var new_sloc_description: String?
     
     @IBOutlet weak var slocName: UITextField!
     
     @IBOutlet weak var slocDescription: UITextField!
 
+    
     weak var delegate: TrayModalViewControllerDelegate? // Delegate reference
+    
+    // interacting with server
+    let client = APIClient()  // how we will interact with the server
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,13 +52,21 @@ class TrayModalViewController: UIViewController, UITextFieldDelegate {
         if textField == slocName {
             print("ModalVC: slocName: \(String(describing: textField.text))")
             delegate?.didSend_sloc_name(textField.text ?? "")
+            new_sloc_name = textField.text
             slocDescription.becomeFirstResponder()
         }
-        if textField == slocDescription{
+        else {
             print("ModalVC: slocDescription: \(String(describing: textField.text))")
             delegate?.didSend_sloc_description(textField.text ?? "")
+            new_sloc_description = textField.text
             textField.resignFirstResponder() // Close the keyboard
         }
+        
+        // Request new storage location using APIClient
+        print("TrayModalVC: Requesting a New Storage Location - name: \(String(describing: new_sloc_name))")
+        client.createStorageLocation(withName: new_sloc_name ?? "", andDescription: new_sloc_description ?? "")
         return true
     }
 }
+
+

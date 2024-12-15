@@ -11,7 +11,6 @@ import UIKit
 class Shared_VCdata {
     static let sharedData = Shared_VCdata()
     var trayImages: [UIImage] = []
-    let defaultUUID = UUID() // random UUID to use as a default
     
     // Define a default Object image
     let defaultObjectImage = UIGraphicsImageRenderer(size: CGSize(width: 200, height: 200)).image { context in
@@ -34,7 +33,5 @@ class Shared_VCdata {
             // Draw the text
             text.draw(at: textPosition, withAttributes: attributes)
         }
-    
-    
     private init() {} // Prevents other instances from being created
 }
