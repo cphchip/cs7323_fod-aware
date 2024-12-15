@@ -158,11 +158,13 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
         {
 
             // Resize the image to 512x512
-            let targetSize = CGSize(width: 512, height: 512)
-            let resizedImage = resizeImage(image: image, targetSize: targetSize)
+            //let targetSize = CGSize(width: 512, height: 512)
+            //let resizedImage = resizeImage(image: image, targetSize: targetSize)
+            let resizedImage = image
 
             // Convert UIImage to JPEG data
-            if let jpegData = resizedImage?.jpegData(compressionQuality: 1.0)
+            //if let jpegData = resizedImage?.jpegData(compressionQuality: 1.0)
+            if let jpegData = resizedImage.jpegData(compressionQuality: 1.0)
             {  // Compression quality: 1.0 = maximum quality
 
                 //save current resized image to send to training/prediction tasks
