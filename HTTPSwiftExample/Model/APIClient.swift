@@ -32,6 +32,28 @@ class APIClient {
 
     // MARK: - Public Methods
     
+    func fetchImage(imageName: String) async throws -> UIImage {
+        // Validate the server URL
+        guard let serverURL = URL(string: "\(API_BASE_ENDPOINT)/images/\(imageName)")
+        else {
+            throw APIError.invalidURL
+        }
+        
+        // Prepare the request
+        var request = URLRequest(url: serverURL)
+        request.httpMethod = "GET"
+        request.addValue(API_TOKEN, forHTTPHeaderField: "x-api-token")
+        
+        // Send the request
+        let data = try await performRequest(request)
+        
+        // Decode the response
+        guard let image = UIImage(data: data) else {
+            throw APIError.decodingError("Failed to decode image data")
+        }
+        return image
+    }
+    
     /// Create a new storage location
     func createStorageLocation(
         withName name: String, andDescription description: String
@@ -208,7 +230,7 @@ class APIClient {
         guard
             let serverURL = URL(
                 string:
-                    "\(API_BASE_ENDPOINT)/history?sloc_id=\(sloc_id.uuidString)"
+                    "\(API_BASE_ENDPOINT)/history/\(sloc_id.uuidString)"
             )
         else {
             throw APIError.invalidURL
