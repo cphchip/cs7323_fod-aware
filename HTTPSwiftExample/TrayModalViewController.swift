@@ -38,9 +38,18 @@ class TrayModalViewController: UIViewController, UITextFieldDelegate {
         slocName.delegate = self
         slocDescription.delegate = self
         
+        // Add a tap gesture to dismiss the keyboard
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+        
         
         // Do any additional setup after loading the view.
     }
+    
+    // Dismiss the keyboard when tapping outside the text fields
+        @objc func dismissKeyboard() {
+            view.endEditing(true)
+        }
     
     
     @IBAction func dismissSelected(_ sender: UIButton) {
@@ -48,22 +57,49 @@ class TrayModalViewController: UIViewController, UITextFieldDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // Switch focus between text fields
+    // Delegate method called when editing begins
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == slocName {
+            //print("User started editing First TextField")
+        } else if textField == slocDescription {
+            //print("User started editing Second TextField")
+        }
+    }
+    
+    // Delegate method called when editing ends
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == slocName {
+            //print("slocName TextField finished editing: \(textField.text ?? "")")
             print("ModalVC: slocName: \(String(describing: textField.text))")
             delegate?.didSend_sloc_name(textField.text ?? "")
             new_sloc_name = textField.text
-            slocDescription.becomeFirstResponder()
-        }
-        else {
+        } else if textField == slocDescription {
+            //print("slocDescription TextField finished editing: \(textField.text ?? "")")
             print("ModalVC: slocDescription: \(String(describing: textField.text))")
             delegate?.didSend_sloc_description(textField.text ?? "")
             new_sloc_description = textField.text
-            textField.resignFirstResponder() // Close the keyboard
         }
-        return true
     }
+    
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        // Switch focus between text fields
+//        if textField == slocName {
+//            print("ModalVC: slocName: \(String(describing: textField.text))")
+//            delegate?.didSend_sloc_name(textField.text ?? "")
+//            new_sloc_name = textField.text
+//            slocDescription.becomeFirstResponder()
+//        }
+//        else {
+//            print("ModalVC: slocDescription: \(String(describing: textField.text))")
+//            delegate?.didSend_sloc_description(textField.text ?? "")
+//            new_sloc_description = textField.text
+//            textField.resignFirstResponder() // Close the keyboard
+//        }
+//        return true
+//    }
+    
+    
+    
 }
 
 

@@ -47,7 +47,9 @@ class TrayViewController: UIViewController {
     
     @IBOutlet weak var qrCodeImageView: UIImageView!
     
-    weak var delegate: TrayViewControllerDelegate? // Delegate reference
+    weak var tray_VC_delegate: TrayViewControllerDelegate? // TrayViewControllerDelegate reference
+    
+    weak var newSloc_delegate: NewStorageLocationDelegate? // StorageLocationDelegate reference
     
     var newQRcode_received: Bool = false  //check if new QR Code received from APIClient
     
@@ -212,7 +214,7 @@ extension TrayViewController: TrayModalViewControllerDelegate {
         // Populate sloc_name UILabel
         slocName.text = new_sloc_name
         
-        delegate?.didSend_sloc_name(new_sloc_name ?? "")
+        tray_VC_delegate?.didSend_sloc_name(new_sloc_name ?? "")
     }
     
     func didSend_sloc_description (_ sloc_description: String) {
@@ -222,7 +224,7 @@ extension TrayViewController: TrayModalViewControllerDelegate {
         // Populate sloc_description UILabel
         slocDescription.text = new_sloc_description
         
-        delegate?.didSend_sloc_description(new_sloc_description ?? "")
+        tray_VC_delegate?.didSend_sloc_description(new_sloc_description ?? "")
     }
     func willSend_NewSlocCreate() {
         // Check if both text fields have valid non-empty values

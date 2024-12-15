@@ -91,7 +91,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
                 return
             }
             newBaseline = true
-            destinationVC.delegate =  self
+            destinationVC.tray_VC_delegate =  self
         }
         else if segue.identifier == "ShowTrayHistoryViewController", // Match the identifier of the segue
            let trayHistoryVC = segue.destination as? TrayHistoryViewController {
