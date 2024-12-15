@@ -51,6 +51,9 @@ class TrayViewController: UIViewController {
     
     var newQRcode_received: Bool = false  //check if new QR Code received from APIClient
     
+    // interacting with server
+    let client = APIClient()  // how we will interact with the server
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Set up any initial configurations
@@ -59,6 +62,7 @@ class TrayViewController: UIViewController {
         newQRcode_received = false
 
         // Do any additional setup after loading the view.
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -66,6 +70,13 @@ class TrayViewController: UIViewController {
            let modalVC = segue.destination as? TrayModalViewController {
             modalVC.delegate = self // Set the delegate
         }
+    }
+    
+    func Send_CreateNewSloc() {
+        // Request new storage location using APIClient
+        print("TrayModalVC: Requesting a New Storage Location - name: \(String(describing: new_sloc_name))")
+        feedbackLabel.text = "Requesting a New Storage Location!"
+        client.createStorageLocation(withName: new_sloc_name ?? "", andDescription: new_sloc_description ?? "")
     }
     
     @IBAction func createQRCode(_ sender: UIButton) {
@@ -214,6 +225,21 @@ extension TrayViewController: TrayModalViewControllerDelegate {
         
         delegate?.didSend_sloc_description(new_sloc_description ?? "")
     }
+    func willSend_NewSlocCreate() {
+        // Check if both text fields have valid non-empty values
+        if let name = new_sloc_name, !name.isEmpty,
+           let description = new_sloc_description, !description.isEmpty {
+            // Both fields are valid, proceed further
+            print("trayVC-Name: \(name)")
+            print("trayVC-Description: \(description)")
+            
+            // Request new storage location using APIClient
+            Send_CreateNewSloc()
+        }
+        else {
+            print(" Must Enter Both Name and Description!")
+        }
+    }
 }
 
 // Subscribe to APIClient NewStorageLocation Delegate
@@ -227,4 +253,5 @@ extension TrayViewController: NewStorageLocationDelegate {
     func didFailCreatingStorageLocation(error: APIError){
         print(" Failed to Create New Storage Location: \(error.localizedDescription) ")
     }
+    
 }

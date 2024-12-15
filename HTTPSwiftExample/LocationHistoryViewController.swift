@@ -35,7 +35,7 @@ class LocationHistoryViewController: UITableViewController {
         if section == 0 {
             //return self.imageModel.numberOfImages()
             //For TESTING ONLY
-            return Shared_VCdata.sharedData.trayImages.count
+            //return Shared_VCdata.sharedData.trayImages.count
         }
         
         return 1
@@ -48,7 +48,6 @@ class LocationHistoryViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "InvHistoryCell", for: indexPath)
             
             // FOR TESTING ONLY
-            // Get the row number
             //print("current_row: \(indexPath.row)")
             //locationImages[indexPath.row] = Shared_VCdata.sharedData.trayImages[indexPath.row]
             
@@ -77,9 +76,6 @@ class LocationHistoryViewController: UITableViewController {
            let cell = sender as? UITableViewCell,
            let name = cell.textLabel?.text,
            let indexPath = tableView.indexPath(for: cell) { // Get the indexPath of the tapped cell
-            //vc.displayImageName = name
-            //vc.objectImage = Shared_VCdata.sharedData.trayImages[current_row ?? 0]
-            //vc.objectImage = locationImages[0]
             vc.objectImage = Shared_VCdata.sharedData.trayImages[indexPath.row]  // Pass the correct image
             
         }

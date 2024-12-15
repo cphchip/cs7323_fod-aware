@@ -138,7 +138,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
                     // self.capturedImageView.image = image
                     
                     //TEST ONLY - send image to shared object for testing REMOVE AFTER
-                    Shared_VCdata.sharedData.trayImages.append(self.currentResizedImage)
+                    //Shared_VCdata.sharedData.trayImages.append(self.currentResizedImage)
                     
                     self.capturedImageView.image = resizedImage
                     self.capturedImageView.isHidden = false
@@ -347,5 +347,6 @@ extension ViewController: TrayViewControllerDelegate {
     func didSend_sloc_description (_ sloc_description: String) {
         new_sloc_description = sloc_description
         print("VC: new_sloc_description = \(String(describing: new_sloc_description))")
-    }
+    } 
+
 }

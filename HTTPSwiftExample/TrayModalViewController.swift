@@ -11,6 +11,7 @@ import UIKit
 protocol TrayModalViewControllerDelegate: AnyObject {
     func didSend_sloc_name (_ sloc_name: String)
     func didSend_sloc_description (_ sloc_description: String)
+    func willSend_NewSlocCreate()
 }
 
 class TrayModalViewController: UIViewController, UITextFieldDelegate {
@@ -27,8 +28,7 @@ class TrayModalViewController: UIViewController, UITextFieldDelegate {
     
     weak var delegate: TrayModalViewControllerDelegate? // Delegate reference
     
-    // interacting with server
-    let client = APIClient()  // how we will interact with the server
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +44,8 @@ class TrayModalViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func dismissSelected(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
+        delegate?.willSend_NewSlocCreate()
+        self.dismiss(animated: true, completion: nil)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -61,10 +62,6 @@ class TrayModalViewController: UIViewController, UITextFieldDelegate {
             new_sloc_description = textField.text
             textField.resignFirstResponder() // Close the keyboard
         }
-        
-        // Request new storage location using APIClient
-        print("TrayModalVC: Requesting a New Storage Location - name: \(String(describing: new_sloc_name))")
-        client.createStorageLocation(withName: new_sloc_name ?? "", andDescription: new_sloc_description ?? "")
         return true
     }
 }

@@ -12,7 +12,14 @@ private let reuseIdentifier = "CollectCell"
 
 class TrayHistoryViewController: UICollectionViewController {
     
+    var currentlocations: [StorageLocation]?
+    
     var objectImages: [UIImage] = [] // Array to hold multiple images
+    
+
+    
+    // interacting with server
+    let client = APIClient()  // how we will interact with the server
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +28,10 @@ class TrayHistoryViewController: UICollectionViewController {
         //guard let objectImage = objectImage else {
         //    print("No object image provided")
         //    return
-       // }
+        // }
+        // Ask the client to fetch the Storage Locations
+        
+        client.fetchStorageLocations()
         
         // Do any additional setup after loading the view.
     }
@@ -33,7 +43,8 @@ class TrayHistoryViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return objectImages.count // Number of items matches the number of images
+        //return objectImages.count // Number of items matches the number of images
+        return currentlocations?.count ?? 0 // Number of items matches the number of images
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -72,4 +83,14 @@ class TrayHistoryViewController: UICollectionViewController {
     }
     */
 
+}
+// Subscribe to APIClient NewStorageLocation Delegate
+extension TrayHistoryViewController: StorageLocationsDelegate {
+    func didFetchStorageLocations(locations: [StorageLocation]) {
+        print("StorageLocations Fetched! \(locations.count)")
+        currentlocations = locations
+    }
+    func didFailFetchingStorageLocations(error: APIError) {
+        print(" Failed to Fetch StorageLocations: \(error.localizedDescription) ")
+    }
 }
