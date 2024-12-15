@@ -82,7 +82,41 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
         client.historyDelegate = self
         
         newBaseline = false
+        
+        // Call function to create the camera shutter button
+        setupShutterButton()
+               
     }
+    
+    // Create a camera shutter button (code referenced from chatGPT)
+    func setupShutterButton() {
+        let shutterButton = UIButton(type: .system)
+        shutterButton.setTitle("Shutter", for: .normal)
+        shutterButton.backgroundColor = .white
+        shutterButton.layer.cornerRadius = 35
+        shutterButton.layer.borderWidth = 4
+        shutterButton.layer.borderColor = UIColor.black.cgColor
+        
+        // Apply a shadow to increase button visibility on white backgrounds
+        shutterButton.layer.shadowColor = UIColor.black.cgColor
+        shutterButton.layer.shadowOpacity = 0.3
+        shutterButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        shutterButton.layer.shadowRadius = 4
+        
+        shutterButton.translatesAutoresizingMaskIntoConstraints = false
+        shutterButton.addTarget(self, action: #selector(capturePhotoButtonTapped), for: .touchUpInside)
+
+        view.addSubview(shutterButton)
+
+        // Add constraints
+        NSLayoutConstraint.activate([
+            shutterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            shutterButton.bottomAnchor.constraint(equalTo: StartStopCamera.bottomAnchor),
+            shutterButton.widthAnchor.constraint(equalToConstant: 70),
+            shutterButton.heightAnchor.constraint(equalToConstant: 70)
+        ])
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowTrayViewController" {
