@@ -62,7 +62,7 @@
                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                 </collectionViewFlowLayout>
             </objects>
-            <point key="canvasLocation" x="750.38167938931292" y="-102.11267605633803"/>
+            <point key="canvasLocation" x="-1285" y="-211"/>
         </scene>
         <!--Tray_Detail-->
         <scene sceneID="a27-qV-g8n">
@@ -72,7 +72,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sss-wl-eri" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1463" y="-90"/>
+            <point key="canvasLocation" x="-465" y="-247"/>
         </scene>
     </scenes>
     <resources>
