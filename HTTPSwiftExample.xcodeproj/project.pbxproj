@@ -20,6 +20,9 @@
 		D9112D9C2D0951BD002CDD9E /* Shared_VCdata.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D9B2D0951BD002CDD9E /* Shared_VCdata.swift */; };
 		D9112D9E2D09D11D002CDD9E /* Tray_Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9112D9D2D09D11D002CDD9E /* Tray_Detail.storyboard */; };
 		D9112DA02D09D372002CDD9E /* TrayDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D9F2D09D372002CDD9E /* TrayDetailViewController.swift */; };
+		D924C6562D0E655A0045F0A1 /* LocationHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D924C6552D0E655A0045F0A1 /* LocationHistoryViewController.swift */; };
+		D924C6642D0E67D30045F0A1 /* LocationHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D924C6632D0E67D30045F0A1 /* LocationHistory.storyboard */; };
+		D924C68A2D0E809E0045F0A1 /* HistoryItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D924C6892D0E809E0045F0A1 /* HistoryItemViewController.swift */; };
 		D9E9FC772D0D52B900132146 /* TrayModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E9FC762D0D52B900132146 /* TrayModalViewController.swift */; };
 		D9E9FD762D0DE00700132146 /* QRCodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E9FD752D0DE00700132146 /* QRCodeScanner.swift */; };
 /* End PBXBuildFile section */
@@ -40,6 +43,9 @@
 		D9112D9B2D0951BD002CDD9E /* Shared_VCdata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared_VCdata.swift; sourceTree = "<group>"; };
 		D9112D9D2D09D11D002CDD9E /* Tray_Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tray_Detail.storyboard; sourceTree = "<group>"; };
 		D9112D9F2D09D372002CDD9E /* TrayDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayDetailViewController.swift; sourceTree = "<group>"; };
+		D924C6552D0E655A0045F0A1 /* LocationHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHistoryViewController.swift; sourceTree = "<group>"; };
+		D924C6632D0E67D30045F0A1 /* LocationHistory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LocationHistory.storyboard; sourceTree = "<group>"; };
+		D924C6892D0E809E0045F0A1 /* HistoryItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItemViewController.swift; sourceTree = "<group>"; };
 		D9E9FC762D0D52B900132146 /* TrayModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayModalViewController.swift; sourceTree = "<group>"; };
 		D9E9FD752D0DE00700132146 /* QRCodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScanner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,12 +91,15 @@
 				35B1C2CB2D050556003E1B39 /* new_tray.storyboard */,
 				D9112D9D2D09D11D002CDD9E /* Tray_Detail.storyboard */,
 				D9112D972D06A3A7002CDD9E /* Tray_History.storyboard */,
+				D924C6632D0E67D30045F0A1 /* LocationHistory.storyboard */,
 				B67483DC1ACA2D6800A9970E /* ViewController.swift */,
 				D9E9FD752D0DE00700132146 /* QRCodeScanner.swift */,
 				D9112D9B2D0951BD002CDD9E /* Shared_VCdata.swift */,
 				35B1C2CD2D050823003E1B39 /* TrayViewController.swift */,
 				D9E9FC762D0D52B900132146 /* TrayModalViewController.swift */,
 				D9112D952D069111002CDD9E /* TrayHistoryViewController.swift */,
+				D924C6552D0E655A0045F0A1 /* LocationHistoryViewController.swift */,
+				D924C6892D0E809E0045F0A1 /* HistoryItemViewController.swift */,
 				D9112D9F2D09D372002CDD9E /* TrayDetailViewController.swift */,
 				D9112D992D088D15002CDD9E /* CollectionViewCell.swift */,
 				B67483E11ACA2D6800A9970E /* Images.xcassets */,
@@ -174,6 +183,7 @@
 				35B1C2CC2D050556003E1B39 /* new_tray.storyboard in Resources */,
 				B67483E01ACA2D6800A9970E /* Main.storyboard in Resources */,
 				B67483E21ACA2D6800A9970E /* Images.xcassets in Resources */,
+				D924C6642D0E67D30045F0A1 /* LocationHistory.storyboard in Resources */,
 				D9112D9E2D09D11D002CDD9E /* Tray_Detail.storyboard in Resources */,
 				D9112D982D06A3A7002CDD9E /* Tray_History.storyboard in Resources */,
 			);
@@ -191,7 +201,9 @@
 				35B1C2CE2D050823003E1B39 /* TrayViewController.swift in Sources */,
 				B67483DB1ACA2D6800A9970E /* AppDelegate.swift in Sources */,
 				D9E9FC772D0D52B900132146 /* TrayModalViewController.swift in Sources */,
+				D924C6562D0E655A0045F0A1 /* LocationHistoryViewController.swift in Sources */,
 				D9E9FD762D0DE00700132146 /* QRCodeScanner.swift in Sources */,
+				D924C68A2D0E809E0045F0A1 /* HistoryItemViewController.swift in Sources */,
 				D9112D962D069111002CDD9E /* TrayHistoryViewController.swift in Sources */,
 				D9112DA02D09D372002CDD9E /* TrayDetailViewController.swift in Sources */,
 				D9112D9C2D0951BD002CDD9E /* Shared_VCdata.swift in Sources */,

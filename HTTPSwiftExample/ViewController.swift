@@ -136,6 +136,10 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
 
                 DispatchQueue.main.async {
                     // self.capturedImageView.image = image
+                    
+                    //TEST ONLY - send image to shared object for testing REMOVE AFTER
+                    Shared_VCdata.sharedData.trayImages.append(self.currentResizedImage)
+                    
                     self.capturedImageView.image = resizedImage
                     self.capturedImageView.isHidden = false
 
