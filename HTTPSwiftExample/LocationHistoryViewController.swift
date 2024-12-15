@@ -13,6 +13,7 @@ import UIKit
 class LocationHistoryViewController: UITableViewController {
     
     var current_row: Int?
+    var locationImages: [UIImage] = []  //location images to pass to TrayDetail View Controller
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,8 +49,8 @@ class LocationHistoryViewController: UITableViewController {
             
             // FOR TESTING ONLY
             // Get the row number
-                    let current_row = indexPath.row
-            //
+            //print("current_row: \(indexPath.row)")
+            //locationImages[indexPath.row] = Shared_VCdata.sharedData.trayImages[indexPath.row]
             
             // Configure the cell...
             //if let name = self.imageModel.getImageName(for: indexPath.row) as? String{
@@ -72,14 +73,16 @@ class LocationHistoryViewController: UITableViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         
-        if let vc = segue.destination as? HistoryItemViewController,
+        if let vc = segue.destination as? TrayDetailViewController,
            let cell = sender as? UITableViewCell,
-           let name = cell.textLabel?.text {
+           let name = cell.textLabel?.text,
+           let indexPath = tableView.indexPath(for: cell) { // Get the indexPath of the tapped cell
             //vc.displayImageName = name
-            print("LocationHistoryVC: current_row : \(current_row))")
-            vc.objectImage = Shared_VCdata.sharedData.trayImages[0 ?? 0]
+            //vc.objectImage = Shared_VCdata.sharedData.trayImages[current_row ?? 0]
+            //vc.objectImage = locationImages[0]
+            vc.objectImage = Shared_VCdata.sharedData.trayImages[indexPath.row]  // Pass the correct image
+            
         }
+        
     }
-    
-    
 }

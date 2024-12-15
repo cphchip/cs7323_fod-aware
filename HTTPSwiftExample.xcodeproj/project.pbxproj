@@ -18,7 +18,6 @@
 		D9112D982D06A3A7002CDD9E /* Tray_History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9112D972D06A3A7002CDD9E /* Tray_History.storyboard */; };
 		D9112D9A2D088D15002CDD9E /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D992D088D15002CDD9E /* CollectionViewCell.swift */; };
 		D9112D9C2D0951BD002CDD9E /* Shared_VCdata.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D9B2D0951BD002CDD9E /* Shared_VCdata.swift */; };
-		D9112D9E2D09D11D002CDD9E /* Tray_Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9112D9D2D09D11D002CDD9E /* Tray_Detail.storyboard */; };
 		D9112DA02D09D372002CDD9E /* TrayDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D9F2D09D372002CDD9E /* TrayDetailViewController.swift */; };
 		D924C6562D0E655A0045F0A1 /* LocationHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D924C6552D0E655A0045F0A1 /* LocationHistoryViewController.swift */; };
 		D924C6642D0E67D30045F0A1 /* LocationHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D924C6632D0E67D30045F0A1 /* LocationHistory.storyboard */; };
@@ -41,7 +40,6 @@
 		D9112D972D06A3A7002CDD9E /* Tray_History.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tray_History.storyboard; sourceTree = "<group>"; };
 		D9112D992D088D15002CDD9E /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		D9112D9B2D0951BD002CDD9E /* Shared_VCdata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared_VCdata.swift; sourceTree = "<group>"; };
-		D9112D9D2D09D11D002CDD9E /* Tray_Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tray_Detail.storyboard; sourceTree = "<group>"; };
 		D9112D9F2D09D372002CDD9E /* TrayDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayDetailViewController.swift; sourceTree = "<group>"; };
 		D924C6552D0E655A0045F0A1 /* LocationHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHistoryViewController.swift; sourceTree = "<group>"; };
 		D924C6632D0E67D30045F0A1 /* LocationHistory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LocationHistory.storyboard; sourceTree = "<group>"; };
@@ -89,7 +87,6 @@
 				B67483DE1ACA2D6800A9970E /* Main.storyboard */,
 				35D932D62D0CE8B600F39C21 /* Launch Screen.storyboard */,
 				35B1C2CB2D050556003E1B39 /* new_tray.storyboard */,
-				D9112D9D2D09D11D002CDD9E /* Tray_Detail.storyboard */,
 				D9112D972D06A3A7002CDD9E /* Tray_History.storyboard */,
 				D924C6632D0E67D30045F0A1 /* LocationHistory.storyboard */,
 				B67483DC1ACA2D6800A9970E /* ViewController.swift */,
@@ -184,7 +181,6 @@
 				B67483E01ACA2D6800A9970E /* Main.storyboard in Resources */,
 				B67483E21ACA2D6800A9970E /* Images.xcassets in Resources */,
 				D924C6642D0E67D30045F0A1 /* LocationHistory.storyboard in Resources */,
-				D9112D9E2D09D11D002CDD9E /* Tray_Detail.storyboard in Resources */,
 				D9112D982D06A3A7002CDD9E /* Tray_History.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

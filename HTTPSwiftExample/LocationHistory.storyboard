@@ -34,7 +34,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="mFm-sA-k9e"/>
+                                    <segue destination="PHt-rY-Rl1" kind="show" identifier="ShowTrayDetailViewController" id="NlB-XA-6Kn"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -48,37 +48,44 @@
             </objects>
             <point key="canvasLocation" x="-815" y="107"/>
         </scene>
-        <!--HistoryItem View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Tray Detail View Controller-->
+        <scene sceneID="ZJC-CZ-QBl">
             <objects>
-                <viewController id="BYZ-38-t0r" userLabel="HistoryItem View Controller" customClass="HistoryItemViewController" customModule="HTTPSwiftExample" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <viewController storyboardIdentifier="Tray_Detail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PHt-rY-Rl1" customClass="TrayDetailViewController" customModule="HTTPSwiftExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mp9-za-kwV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ORZ-hw-T1k">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <viewLayoutGuide key="contentLayoutGuide" id="01d-TX-euh"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="mgx-9o-IRl"/>
-                            </scrollView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Results" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sUS-qM-t5S">
+                                <rect key="frame" x="20" y="609" width="374" height="232"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rr4-hX-fTk">
+                                <rect key="frame" x="168" y="36" width="100" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dLM-Lg-hxH">
+                                <rect key="frame" x="26" y="65" width="362" height="536"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <viewLayoutGuide key="safeArea" id="MQ6-om-XGd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="ORZ-hw-T1k" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="LbG-4C-L4u"/>
-                            <constraint firstItem="ORZ-hw-T1k" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Q62-h0-kuu"/>
-                            <constraint firstItem="ORZ-hw-T1k" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="i11-Ef-Lua"/>
-                            <constraint firstItem="ORZ-hw-T1k" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="oEI-9B-ceQ"/>
-                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="GFd-Lp-AAd"/>
+                    <navigationItem key="navigationItem" id="1E3-WC-gor"/>
                     <connections>
-                        <outlet property="scrollView" destination="ORZ-hw-T1k" id="tSK-hh-Apz"/>
+                        <outlet property="imageView" destination="dLM-Lg-hxH" id="clF-FT-2d0"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sa9-fx-WVA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="94" y="106"/>
+            <point key="canvasLocation" x="227.536231884058" y="105.80357142857143"/>
         </scene>
     </scenes>
     <resources>
