@@ -111,7 +111,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
         // Add constraints
         NSLayoutConstraint.activate([
             shutterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            shutterButton.bottomAnchor.constraint(equalTo: StartStopCamera.bottomAnchor),
+            shutterButton.centerYAnchor.constraint(equalTo: StartStopCamera.centerYAnchor),
             shutterButton.widthAnchor.constraint(equalToConstant: 70),
             shutterButton.heightAnchor.constraint(equalToConstant: 70)
         ])
