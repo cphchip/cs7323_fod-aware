@@ -72,8 +72,18 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
         capturedImageView.contentMode = .scaleAspectFit
         capturedImageView.isHidden = true  // Hide initially until a photo is cap
 
-        // Set the button's initial title
-        StartStopCamera.setTitle("Start Camera", for: .normal)
+        // Create an attributed string with the desired font
+        let title = NSAttributedString(
+            string: "Start camera",
+            attributes: [
+                .font: UIFont(name: "AvenirNext-DemiBold", size: 17) ?? UIFont.systemFont(ofSize: 17),
+                .foregroundColor: UIColor.black
+            ]
+        )
+        
+        // Set the attributed title for the button's normal state
+        StartStopCamera.setAttributedTitle(title, for: .normal)
+    
 
         // use delegation for interacting with client
         client.inventoryDelegate = self
@@ -245,7 +255,17 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
             DispatchQueue.main.async {
                 // Update UI-related elements on the main thread
                 self.isCameraRunning = true
-                self.StartStopCamera.setTitle("Stop Camera", for: .normal)
+                
+                // Create an attributed string with the desired font and set it as the button's title
+                let stopTitle = NSAttributedString(
+                    string: "Stop camera",
+                    attributes: [
+                        .font: UIFont(name: "AvenirNext-DemiBold", size: 17) ?? UIFont.systemFont(ofSize: 17),
+                        .foregroundColor: UIColor.black
+                    ]
+                )
+                self.StartStopCamera.setAttributedTitle(stopTitle, for: .normal)
+                
                 self.capturedImageView.isHidden = true  // Hide the image view when the camera starts
             }
         }
@@ -255,7 +275,17 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
         // Stop the capture session
         captureSession.stopRunning()
         isCameraRunning = false
-        StartStopCamera.setTitle("Start Camera", for: .normal)
+        // Set the button's initial title with Avenir Next DemiBold font
+        let initialTitle = NSAttributedString(
+            string: "Start camera",
+            attributes: [
+                .font: UIFont(name: "AvenirNext-DemiBold", size: 17) ?? UIFont.systemFont(ofSize: 17),
+                .foregroundColor: UIColor.black
+            ]
+        )
+
+        // Apply the attributed title to the button for the normal state
+        StartStopCamera.setAttributedTitle(initialTitle, for: .normal)
 
         // Remove the preview layer to restore the initial background/UI
         if previewLayer != nil {
