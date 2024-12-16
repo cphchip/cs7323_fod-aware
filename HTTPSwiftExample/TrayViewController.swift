@@ -12,6 +12,7 @@ import UIKit
 protocol TrayViewControllerDelegate: AnyObject {
     func didSend_sloc_name (_ sloc_name: String)
     func didSend_sloc_description (_ sloc_description: String)
+    func didSend_create_baseline (_ sloc_id: String)
 }
 
 class TrayViewController: UIViewController {
@@ -247,10 +248,13 @@ extension TrayViewController: NewStorageLocationDelegate {
     func didCreateStorageLocation(storageLocation: StorageLocation){
         print("New Storage Location Created \(storageLocation.id)")
         DispatchQueue.main.async{
-            self.feedbackLabel.text = "Created Storage Location-Create and Print QR Code"
+            self.feedbackLabel.text = "Created Location-Create and Print QR Code"
         }
         new_qr_code = storageLocation.id
         newQRcode_received = true
+        Shared_VCdata.sharedData.newBaseline = true
+        Shared_VCdata.sharedData.new_sloc_UUID = storageLocation.id
+        tray_VC_delegate?.didSend_create_baseline(storageLocation.id)
     }
     func didFailCreatingStorageLocation(error: APIError){
         print(" Failed to Create New Storage Location: \(error.localizedDescription) ")

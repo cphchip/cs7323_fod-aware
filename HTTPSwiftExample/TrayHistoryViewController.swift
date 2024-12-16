@@ -59,11 +59,11 @@ class TrayHistoryViewController: UICollectionViewController {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? CollectionViewCell {
             cell.imageView.image = UIImage(named: "placeholder")
-            //cell.imageView.image = objectImages[indexPath.item] // Set the image for the corresponding item
+
             guard let locations = currentlocations else {
                 return cell
             }
-            // add text to the cell here (slocName)
+            // get the image name
             let slocName = locations[indexPath.item].name
             guard let imageName = locations[indexPath.item].image_name else {
                 return cell
@@ -94,11 +94,12 @@ class TrayHistoryViewController: UICollectionViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowLocationHistoryiewController",
+        if segue.identifier == "ShowLocationHistoryViewController",
            let locVC = segue.destination as? LocationHistoryViewController,
            let indexPath = collectionView.indexPathsForSelectedItems?.first{
             //locVC.objectImage = objectImages[indexPath.item]
             locVC.currentlocation = currentlocations?[indexPath.item]
+            locVC.current_id = currentlocations?[indexPath.item].id
         }
     }
     

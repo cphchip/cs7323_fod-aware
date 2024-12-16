@@ -16,15 +16,16 @@ class LocationHistoryViewController: UITableViewController {
     var locationImages: [UIImage] = []  //location images to pass to TrayDetail View Controller
     
     var currentlocation: StorageLocation?
+    var current_id: String?
     
-    var current_uuid: UUID?
+    var locHistory: [InventoryCheck]?
     
     // interacting with server
     let client = APIClient()  // how we will interact with the server
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // use delegation for interacting with client
         client.historyDelegate = self
    
@@ -32,7 +33,10 @@ class LocationHistoryViewController: UITableViewController {
     
     override func viewWillAppear(_ animated:Bool)  {
         super.viewWillAppear(animated)
-        //client.fetchHistory(forStorageLocation: currentlocation.id)
+        if let id = current_id {
+            print("locHist:  fetch id = \(id)")
+            client.fetchHistory(forStorageLocation: id)
+        }
     }
     
     // MARK: - Table view data source
@@ -47,6 +51,7 @@ class LocationHistoryViewController: UITableViewController {
             //return self.imageModel.numberOfImages()
             //For TESTING ONLY
             //return Shared_VCdata.sharedData.trayImages.count
+            return locHistory?.count ?? 1
         }
         
         return 1
@@ -86,10 +91,22 @@ class LocationHistoryViewController: UITableViewController {
         if let vc = segue.destination as? TrayDetailViewController,
            let cell = sender as? UITableViewCell,
            let name = cell.textLabel?.text,
-           let indexPath = tableView.indexPath(for: cell) { // Get the indexPath of the tapped cell
+           let indexPath = tableView.indexPath(for: cell) {
            //vc.objectImage = Shared_VCdata.sharedData.trayImages[indexPath.row]  // Pass the correct image
-            vc.objectImage = locationImages[indexPath.row]  // Pass the correct image
+            let imageName = locHistory?[indexPath.row].image_name ?? "placeholder"// Pass the correct image
             
+            // Fetch Inv Check image from client
+            client.fetchImage(imageName) { result in
+                switch result {
+                case .success(let image):
+                    //DispatchQueue.main.async {
+                        vc.objectImage = image  // Pass the correct image
+                    //}
+                case .failure(let error):
+                    print("Failed to fetch image: \(error.localizedDescription)")
+                    vc.objectImage = UIImage(named: "placeholder")  // Placeholder
+                }
+            }
         }
         
     }
@@ -97,6 +114,9 @@ class LocationHistoryViewController: UITableViewController {
 extension LocationHistoryViewController: HistoryDelegate {
     func didFetchHistory(storageLocation: StorageLocation, history: [InventoryCheck]) {
         print("Successfully Fetched History for StorageLocation: \(storageLocation.id)")
+        print("LocationHistoryVC: Location Histories Fetched! \(history.count)")
+        locHistory = history
+        
     }
     func didFailFetchingHistory(error: APIError) {
         print(" Failed to Fetch History: \(error.localizedDescription) ")

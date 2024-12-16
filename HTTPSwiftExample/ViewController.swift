@@ -41,7 +41,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
     var existing_sloc_UUID: UUID?
     
     // unique identifier for a new storage location
-    var new_sloc_UUID: String?
+   // var new_sloc_UUID: String?
     
     // name of the new storage location
     var new_sloc_name: String?
@@ -52,7 +52,10 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
     // date that the storage location was created
     var new_date_created: Date?
     
-    var newBaseline: Bool = false  //new Baseline indication
+    var trayVC_delegate: TrayViewControllerDelegate?
+    
+    //var newBaseline: Bool = false  //new Baseline indication
+    var newBaselineImage_uploaded: Bool = false  //new Baseline Image uploaded indication
     
     
     // User Interface properties
@@ -63,6 +66,8 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
     @IBOutlet weak var feedbackLabel: UILabel!
     
     // MARK: View Controller Life Cycle
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -81,20 +86,23 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
             ]
         )
         
-        // Set the attributed title for the button's normal state
-        StartStopCamera.setAttributedTitle(title, for: .normal)
-    
-
         // use delegation for interacting with client
         client.inventoryDelegate = self
-
-
-       
+        trayVC_delegate = self
         
-        newBaseline = false
+        
+        // Set the attributed title for the button's normal state
+        StartStopCamera.setAttributedTitle(title, for: .normal)
 
         // Call function to create the camera shutter button
         setupShutterButton()
+    }
+    
+    override func viewWillAppear(_ animated:Bool)  {
+        super.viewWillAppear(animated)
+        // use delegation for interacting with client
+        //client.inventoryDelegate = self
+        //trayVC_delegate = self
     }
     
     // Create a camera shutter button (code referenced from chatGPT)
@@ -132,7 +140,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
                 print("destinationVC is nil")
                 return
             }
-            newBaseline = true
+            //newBaseline = true
             destinationVC.tray_VC_delegate =  self
         }
         else if segue.identifier == "ShowTrayHistoryViewController", // Match the identifier of the segue
@@ -304,10 +312,10 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
     @IBAction func uploadImageSelected(_ sender: Any) {
         print("VC-uploadImage selected")
         
-        if newBaseline {
+        //if newBaseline {
            //Initiate creation of the new storage location
            //client.createStorageLocation(withName: new_sloc_name ?? "", andDescription: new_sloc_description ?? "")
-        }
+        //}
         uploadImage()
     }
     
@@ -316,15 +324,22 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
         if currentResizedImage == nil {
             currentResizedImage = Shared_VCdata.sharedData.defaultObjectImage
             print("Image was nil, setting to default")
+            //newBaseline = false
+            Shared_VCdata.sharedData.newBaseline = false
+            return
         }
         
-        if newBaseline {
+        if Shared_VCdata.sharedData.newBaseline {
             print("VC-uploadImage - Uploading New Baseline Image")
             feedbackLabel.text =  "Uploading New Baseline Image!"
             
-            if let storageLocationID = new_sloc_UUID {  // new sloc UUID
-                client.uploadImage(image: currentResizedImage, forStorageLocation: storageLocationID)
-                newBaseline = false
+            if let storageLocationID = Shared_VCdata.sharedData.new_sloc_UUID {  // new sloc UUID
+                if !newBaselineImage_uploaded {
+                    client.uploadImage(image: currentResizedImage, forStorageLocation: storageLocationID)
+                    //newBaseline = false
+                    Shared_VCdata.sharedData.newBaseline = false
+                    newBaselineImage_uploaded = true
+                }
             }
         }
         else{
@@ -355,7 +370,11 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
 extension ViewController: InventoryDelegate {
     
     func didCreateBaseline(storageLocation: StorageLocation) {
-        print("New Baseline Created \(storageLocation.id)")
+        print("VC: New Baseline Created \(storageLocation.id)")
+        Shared_VCdata.sharedData.new_sloc_UUID = storageLocation.id
+        //newBaseline = true
+        Shared_VCdata.sharedData.newBaseline = true
+        newBaselineImage_uploaded = false
     }
     
     func didCheckInventory(inventoryCheck: InventoryCheck) {
@@ -380,9 +399,6 @@ extension ViewController: InventoryDelegate {
     }
 }
 
-
-
-
 // MARK: - TrayViewControllerDelegate
 extension ViewController: TrayViewControllerDelegate {
     func didSend_sloc_name (_ sloc_name: String) {
@@ -392,6 +408,12 @@ extension ViewController: TrayViewControllerDelegate {
     func didSend_sloc_description (_ sloc_description: String) {
         new_sloc_description = sloc_description
         print("VC: new_sloc_description = \(String(describing: new_sloc_description))")
-    } 
+    }
+    func didSend_create_baseline (_ sloc_id: String) {
+        print("VC: Baseline Created! Id = \(sloc_id)")
+        //newBaseline = true
+        Shared_VCdata.sharedData.newBaseline = true
+        newBaselineImage_uploaded = false
+    }
 
 }

@@ -125,7 +125,7 @@ class APIClient {
         }
     }
 
-    func fetchHistory(forStorageLocation sloc_id: UUID) {
+    func fetchHistory(forStorageLocation sloc_id: String) {
         Task {
             do {
                 // Perform the request
@@ -236,14 +236,15 @@ class APIClient {
         return try decodeResponse(data) as StorageLocationsResponse
     }
 
-    private func performFetchHistory(sloc_id: UUID) async throws
+    private func performFetchHistory(sloc_id: String) async throws
         -> HistoryResponse
     {
         // Validate the server URL
         guard
             let serverURL = URL(
                 string:
-                    "\(API_BASE_ENDPOINT)/history/\(sloc_id.uuidString)"
+                    //"\(API_BASE_ENDPOINT)/history/\(sloc_id.uuidString)"
+                    "\(API_BASE_ENDPOINT)/history/\(sloc_id)"
             )
         else {
             throw APIError.invalidURL

@@ -11,6 +11,8 @@ import UIKit
 class Shared_VCdata {
     static let sharedData = Shared_VCdata()
     var trayImages: [UIImage] = []
+    var newBaseline: Bool = false
+    var new_sloc_UUID: String?
     
     // Define a default Object image
     let defaultObjectImage = UIGraphicsImageRenderer(size: CGSize(width: 200, height: 200)).image { context in
