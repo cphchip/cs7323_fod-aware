@@ -113,7 +113,7 @@ class TrayViewController: UIViewController {
             // Get the CIImage from the filter
             if let qrCodeImage = filter.outputImage {
                 // Scale the image
-                let transform = CGAffineTransform(scaleX: 4, y: 4) // Adjust scale as needed
+                let transform = CGAffineTransform(scaleX: 2, y: 2) // Adjust scale as needed
                 let scaledQRCode = qrCodeImage.transformed(by: transform)
                 
                 // Convert to UIImage
