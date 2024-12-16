@@ -254,6 +254,9 @@ extension TrayViewController: NewStorageLocationDelegate {
     }
     func didFailCreatingStorageLocation(error: APIError){
         print(" Failed to Create New Storage Location: \(error.localizedDescription) ")
+        DispatchQueue.main.async{
+            self.feedbackLabel.text = "Failed to Create New Storage Location: \(error.localizedDescription) "
+        }
     }
     
 }
