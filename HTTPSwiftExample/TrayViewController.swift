@@ -112,7 +112,7 @@ class TrayViewController: UIViewController {
             // Get the CIImage from the filter
             if let qrCodeImage = filter.outputImage {
                 // Scale the image
-                let transform = CGAffineTransform(scaleX: 10, y: 10) // Adjust scale as needed
+                let transform = CGAffineTransform(scaleX: 4, y: 4) // Adjust scale as needed
                 let scaledQRCode = qrCodeImage.transformed(by: transform)
                 
                 // Convert to UIImage
@@ -130,7 +130,7 @@ class TrayViewController: UIViewController {
         // Render the QR code for printing
         let printableImage = renderImageForPrinting(qrCodeImageView.image ?? Shared_VCdata.sharedData.defaultObjectImage)
         
-        let padding: CGFloat = 250.0
+        let padding: CGFloat = 150.0
         let printableImageWithPadding = addPadding(to: printableImage, padding: padding) ?? Shared_VCdata.sharedData.defaultObjectImage
         
         // Resize the QR code to make it smaller
