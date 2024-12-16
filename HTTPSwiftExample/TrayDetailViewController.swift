@@ -21,19 +21,10 @@ class TrayDetailViewController: UIViewController {
     
     var objectImage: UIImage? // Variable to hold the passed object image
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Ensure the object image is available
-        guard let objectImage = objectImage else {
-            print("No object image provided")
-            return
-        }
-
-        // Assign the object image to the image view
-       imageView.image = objectImage
-        
-        // Do any additional setup after loading the view.
     }
     
     /*

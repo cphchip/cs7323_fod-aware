@@ -95,21 +95,23 @@ class LocationHistoryViewController: UITableViewController {
         
         if let vc = segue.destination as? TrayDetailViewController,
            let cell = sender as? UITableViewCell,
-           let name = cell.textLabel?.text,
            let indexPath = tableView.indexPath(for: cell) {
            //vc.objectImage = Shared_VCdata.sharedData.trayImages[indexPath.row]  // Pass the correct image
             let imageName = locHistory?[indexPath.row].image_name ?? "placeholder"// Pass the correct image
             
             // Fetch Inv Check image from client
             client.fetchImage(imageName) { result in
+                print(result)
                 switch result {
                 case .success(let image):
-                    //DispatchQueue.main.async {
-                        vc.objectImage = image  // Pass the correct image
-                    //}
+                    DispatchQueue.main.async {
+                        vc.imageView.image = image  // Pass the correct image
+                    }
                 case .failure(let error):
                     print("Failed to fetch image: \(error.localizedDescription)")
-                    vc.objectImage = UIImage(named: "placeholder")  // Placeholder
+                    DispatchQueue.main.async {
+                        vc.imageView.image = UIImage(named: "placeholder")  // Placeholder
+                    }
                 }
             }
         }
