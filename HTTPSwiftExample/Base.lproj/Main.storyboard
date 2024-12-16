@@ -118,7 +118,7 @@
                     <connections>
                         <segue destination="RtX-8b-nDc" kind="relationship" relationship="viewControllers" id="1q0-gP-pWo"/>
                         <segue destination="H4a-Az-hXy" kind="relationship" relationship="viewControllers" id="hNa-Y3-rBE"/>
-                        <segue destination="cNa-yJ-hoo" kind="relationship" relationship="viewControllers" id="VwQ-rU-Fvv"/>
+                        <segue destination="uel-QW-pY5" kind="relationship" relationship="viewControllers" id="wIR-ae-DA9"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4M8-I3-T2i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -400,7 +400,8 @@
                             <outlet property="delegate" destination="cNa-yJ-hoo" id="HE4-9C-d2c"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" title="History" image="clock.fill" catalog="system" id="BiT-Tb-FeW"/>
+                    <tabBarItem key="tabBarItem" selectedImage="clock.fill" catalog="system" id="BiT-Tb-FeW"/>
+                    <navigationItem key="navigationItem" id="gKd-o2-vXb"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NuA-C3-YMd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <collectionViewFlowLayout automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mlC-AQ-e19">
@@ -410,18 +411,35 @@
                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                 </collectionViewFlowLayout>
             </objects>
-            <point key="canvasLocation" x="24" y="612"/>
+            <point key="canvasLocation" x="22" y="1363"/>
+        </scene>
+        <!--History-->
+        <scene sceneID="My0-w3-4F3">
+            <objects>
+                <navigationController id="uel-QW-pY5" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="History" image="clock.fill" catalog="system" id="ebo-jI-yKj"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ml5-GW-HUR">
+                        <rect key="frame" x="0.0" y="62" width="440" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="cNa-yJ-hoo" kind="relationship" relationship="rootViewController" id="PWc-i1-kDL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LCq-5F-gTB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="22" y="612"/>
         </scene>
         <!--Tray Detail View Controller-->
         <scene sceneID="gbq-di-dsC">
             <objects>
                 <viewController storyboardIdentifier="Tray_Detail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Smi-e5-iXn" customClass="TrayDetailViewController" customModule="HTTPSwiftExample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NoW-3X-QUt">
-                        <rect key="frame" x="0.0" y="0.0" width="440" height="946"/>
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WrH-nM-2Qz">
-                                <rect key="frame" x="160.66666666666666" y="101.33333333333333" width="118.99999999999997" height="39.999999999999986"/>
+                                <rect key="frame" x="160.66666666666666" y="114.66666666666669" width="118.99999999999997" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="119" id="8DB-jh-lhp"/>
                                     <constraint firstAttribute="height" constant="40" id="dhd-4B-FcQ"/>
@@ -431,10 +449,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zhi-jH-vTg">
-                                <rect key="frame" x="22" y="157.66666666666669" width="396" height="630.66666666666652"/>
+                                <rect key="frame" x="22" y="171" width="396" height="637.33333333333348"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Results" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xrj-QZ-PT2">
-                                <rect key="frame" x="18" y="795.66666666666663" width="404" height="61"/>
+                                <rect key="frame" x="18" y="815.66666666666663" width="404" height="61"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="61" id="4ip-DL-UyU"/>
                                 </constraints>
@@ -464,14 +482,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TgD-pL-xNt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="23.664122137404579" y="2119.7183098591549"/>
+            <point key="canvasLocation" x="22" y="2797"/>
         </scene>
         <!--LocationHistoryView Controller-->
         <scene sceneID="HQB-Fs-4C5">
             <objects>
                 <tableViewController storyboardIdentifier="LocationHistory" useStoryboardIdentifierAsRestorationIdentifier="YES" id="DZS-XF-S6F" userLabel="LocationHistoryView Controller" customClass="LocationHistoryViewController" customModule="HTTPSwiftExample" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Lhb-nB-lkr">
-                        <rect key="frame" x="0.0" y="0.0" width="440" height="946"/>
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -505,7 +523,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RjO-cZ-vzC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="24" y="1363"/>
+            <point key="canvasLocation" x="22" y="2060"/>
         </scene>
     </scenes>
     <resources>
