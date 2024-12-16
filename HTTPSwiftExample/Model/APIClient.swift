@@ -245,7 +245,9 @@ class APIClient {
 
         // Send the request
         let data = try await performRequest(request)
-
+        // convert data to string
+        let dataString = String(data: data, encoding: .utf8)
+        print("Data: \(dataString ?? "No data")")
         // Decode the response
         return try decodeResponse(data) as HistoryResponse
     }
