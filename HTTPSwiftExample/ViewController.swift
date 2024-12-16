@@ -82,9 +82,39 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
        
         
         newBaseline = false
+
+        // Call function to create the camera shutter button
+        setupShutterButton()
     }
     
+    // Create a camera shutter button (code referenced from chatGPT)
+    func setupShutterButton() {
+        let shutterButton = UIButton(type: .system)
+        shutterButton.setTitle("Shutter", for: .normal)
+        shutterButton.backgroundColor = .white
+        shutterButton.layer.cornerRadius = 35
+        shutterButton.layer.borderWidth = 4
+        shutterButton.layer.borderColor = UIColor.black.cgColor
+        
+        // Apply a shadow to increase button visibility on white backgrounds
+        shutterButton.layer.shadowColor = UIColor.black.cgColor
+        shutterButton.layer.shadowOpacity = 0.3
+        shutterButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        shutterButton.layer.shadowRadius = 4
+        
+        shutterButton.translatesAutoresizingMaskIntoConstraints = false
+        shutterButton.addTarget(self, action: #selector(capturePhotoButtonTapped), for: .touchUpInside)
 
+        view.addSubview(shutterButton)
+
+        // Add constraints
+        NSLayoutConstraint.activate([
+            shutterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            shutterButton.centerYAnchor.constraint(equalTo: StartStopCamera.centerYAnchor),
+            shutterButton.widthAnchor.constraint(equalToConstant: 70),
+            shutterButton.heightAnchor.constraint(equalToConstant: 70)
+        ])
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowTrayViewController" {
@@ -126,11 +156,12 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
         {
 
             // Resize the image to 512x512
-            let targetSize = CGSize(width: 512, height: 512)
-            let resizedImage = resizeImage(image: image, targetSize: targetSize)
+            //let targetSize = CGSize(width: 512, height: 512)
+            //let resizedImage = resizeImage(image: image, targetSize: targetSize)
+            let resizedImage = image
 
             // Convert UIImage to JPEG data
-            if let jpegData = resizedImage?.jpegData(compressionQuality: 1.0)
+            if let jpegData = resizedImage.jpegData(compressionQuality: 1.0)
             {  // Compression quality: 1.0 = maximum quality
 
                 //save current resized image to send to training/prediction tasks
@@ -138,10 +169,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
 
                 DispatchQueue.main.async {
                     // self.capturedImageView.image = image
-                    
-                    //TEST ONLY - send image to shared object for testing REMOVE AFTER
-                    //Shared_VCdata.sharedData.trayImages.append(self.currentResizedImage)
-                    
                     self.capturedImageView.image = resizedImage
                     self.capturedImageView.isHidden = false
 

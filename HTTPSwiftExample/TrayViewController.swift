@@ -246,7 +246,9 @@ extension TrayViewController: TrayModalViewControllerDelegate {
 extension TrayViewController: NewStorageLocationDelegate {
     func didCreateStorageLocation(storageLocation: StorageLocation){
         print("New Storage Location Created \(storageLocation.id)")
-        //feedbackLabel.text = "Created Storage Location-Create and Print QR Code"
+        DispatchQueue.main.async{
+            self.feedbackLabel.text = "Created Storage Location-Create and Print QR Code"
+        }
         new_qr_code = storageLocation.id
         newQRcode_received = true
     }
