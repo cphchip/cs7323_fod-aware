@@ -17,7 +17,6 @@
 		D9112D9A2D088D15002CDD9E /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D992D088D15002CDD9E /* CollectionViewCell.swift */; };
 		D9112D9C2D0951BD002CDD9E /* Shared_VCdata.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D9B2D0951BD002CDD9E /* Shared_VCdata.swift */; };
 		D9112DA02D09D372002CDD9E /* TrayDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D9F2D09D372002CDD9E /* TrayDetailViewController.swift */; };
-		D924C8442D0FA0CE0045F0A1 /* LocationHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D924C8432D0FA0CE0045F0A1 /* LocationHistory.storyboard */; };
 		D9E9FC772D0D52B900132146 /* TrayModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E9FC762D0D52B900132146 /* TrayModalViewController.swift */; };
 		D9E9FD762D0DE00700132146 /* QRCodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E9FD752D0DE00700132146 /* QRCodeScanner.swift */; };
 /* End PBXBuildFile section */
@@ -35,7 +34,6 @@
 		D9112D992D088D15002CDD9E /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		D9112D9B2D0951BD002CDD9E /* Shared_VCdata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared_VCdata.swift; sourceTree = "<group>"; };
 		D9112D9F2D09D372002CDD9E /* TrayDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayDetailViewController.swift; sourceTree = "<group>"; };
-		D924C8432D0FA0CE0045F0A1 /* LocationHistory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LocationHistory.storyboard; sourceTree = "<group>"; };
 		D9E9FC762D0D52B900132146 /* TrayModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayModalViewController.swift; sourceTree = "<group>"; };
 		D9E9FD752D0DE00700132146 /* QRCodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScanner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,7 +76,6 @@
 				B67483DA1ACA2D6800A9970E /* AppDelegate.swift */,
 				B67483DE1ACA2D6800A9970E /* Main.storyboard */,
 				35D932D62D0CE8B600F39C21 /* Launch Screen.storyboard */,
-				D924C8432D0FA0CE0045F0A1 /* LocationHistory.storyboard */,
 				B67483DC1ACA2D6800A9970E /* ViewController.swift */,
 				D9E9FD752D0DE00700132146 /* QRCodeScanner.swift */,
 				D9112D9B2D0951BD002CDD9E /* Shared_VCdata.swift */,
@@ -164,7 +161,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D924C8442D0FA0CE0045F0A1 /* LocationHistory.storyboard in Resources */,
 				35D932D72D0CE8B600F39C21 /* Launch Screen.storyboard in Resources */,
 				B67483E01ACA2D6800A9970E /* Main.storyboard in Resources */,
 				B67483E21ACA2D6800A9970E /* Images.xcassets in Resources */,
@@ -316,7 +312,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = SL7HQTQV6F;
+				DEVELOPMENT_TEAM = 39H8V3866P;
 				INFOPLIST_FILE = HTTPSwiftExample/Info.plist;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -335,7 +331,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = SL7HQTQV6F;
+				DEVELOPMENT_TEAM = 39H8V3866P;
 				INFOPLIST_FILE = HTTPSwiftExample/Info.plist;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
