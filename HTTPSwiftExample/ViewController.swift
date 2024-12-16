@@ -359,14 +359,26 @@ extension ViewController: InventoryDelegate {
     }
     
     func didCheckInventory(inventoryCheck: InventoryCheck) {
-        print("Performed Inventory Check \(inventoryCheck.id)")
+        print("Performed Inventory Check: ID = \(inventoryCheck.id)")
+        print("Inventory Check: Inventory_Complete = \(inventoryCheck.inventory_complete)")
+        print("Inventory Check: Matches_Baseline = \(inventoryCheck.matches_baseline)")
+        print("Inventory Check: Image_Name = \(inventoryCheck.image_name)")
+        print("Inventory Check: Date_Created = \(inventoryCheck.created)")
+        DispatchQueue.main.async{
+            if !inventoryCheck.matches_baseline{
+                self.view.backgroundColor = .red  // set background to red if does not match
+            }
+            else{
+                self.view.backgroundColor = .green  // set background to red if does not match
+            }
+        }
+
     }
     
     func didFailImageUpload(error: APIError) {
         print("Image Upload Failed: \(error.localizedDescription) ")
     }
 }
-
 
 
 

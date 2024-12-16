@@ -32,7 +32,7 @@ class LocationHistoryViewController: UITableViewController {
     
     override func viewWillAppear(_ animated:Bool)  {
         super.viewWillAppear(animated)
-        client.fetchHistory(forStorageLocation: currentlocation.id)
+        //client.fetchHistory(forStorageLocation: currentlocation.id)
     }
     
     // MARK: - Table view data source
