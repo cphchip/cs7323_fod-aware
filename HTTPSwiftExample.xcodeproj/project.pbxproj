@@ -17,6 +17,7 @@
 		D9112D9A2D088D15002CDD9E /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D992D088D15002CDD9E /* CollectionViewCell.swift */; };
 		D9112D9C2D0951BD002CDD9E /* Shared_VCdata.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D9B2D0951BD002CDD9E /* Shared_VCdata.swift */; };
 		D9112DA02D09D372002CDD9E /* TrayDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9112D9F2D09D372002CDD9E /* TrayDetailViewController.swift */; };
+		D924C9992D0FF04B0045F0A1 /* LocationHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D924C9982D0FF04B0045F0A1 /* LocationHistoryViewController.swift */; };
 		D9E9FC772D0D52B900132146 /* TrayModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E9FC762D0D52B900132146 /* TrayModalViewController.swift */; };
 		D9E9FD762D0DE00700132146 /* QRCodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E9FD752D0DE00700132146 /* QRCodeScanner.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +35,7 @@
 		D9112D992D088D15002CDD9E /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		D9112D9B2D0951BD002CDD9E /* Shared_VCdata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared_VCdata.swift; sourceTree = "<group>"; };
 		D9112D9F2D09D372002CDD9E /* TrayDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayDetailViewController.swift; sourceTree = "<group>"; };
+		D924C9982D0FF04B0045F0A1 /* LocationHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHistoryViewController.swift; sourceTree = "<group>"; };
 		D9E9FC762D0D52B900132146 /* TrayModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayModalViewController.swift; sourceTree = "<group>"; };
 		D9E9FD752D0DE00700132146 /* QRCodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScanner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +84,7 @@
 				35B1C2CD2D050823003E1B39 /* TrayViewController.swift */,
 				D9E9FC762D0D52B900132146 /* TrayModalViewController.swift */,
 				D9112D952D069111002CDD9E /* TrayHistoryViewController.swift */,
+				D924C9982D0FF04B0045F0A1 /* LocationHistoryViewController.swift */,
 				D9112D9F2D09D372002CDD9E /* TrayDetailViewController.swift */,
 				D9112D992D088D15002CDD9E /* CollectionViewCell.swift */,
 				B67483E11ACA2D6800A9970E /* Images.xcassets */,
@@ -177,6 +180,7 @@
 				B67483DD1ACA2D6800A9970E /* ViewController.swift in Sources */,
 				D9112D9A2D088D15002CDD9E /* CollectionViewCell.swift in Sources */,
 				35B1C2CE2D050823003E1B39 /* TrayViewController.swift in Sources */,
+				D924C9992D0FF04B0045F0A1 /* LocationHistoryViewController.swift in Sources */,
 				B67483DB1ACA2D6800A9970E /* AppDelegate.swift in Sources */,
 				D9E9FC772D0D52B900132146 /* TrayModalViewController.swift in Sources */,
 				D9E9FD762D0DE00700132146 /* QRCodeScanner.swift in Sources */,
