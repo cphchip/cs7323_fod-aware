@@ -41,7 +41,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
     var existing_sloc_UUID: UUID?
     
     // unique identifier for a new storage location
-    var new_sloc_UUID: UUID?
+    var new_sloc_UUID: String?
     
     // name of the new storage location
     var new_sloc_name: String?
@@ -77,46 +77,14 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
 
         // use delegation for interacting with client
         client.inventoryDelegate = self
-        client.newStorageLocationDelegate = self
-        client.storageLocationsDelegate = self
-        client.historyDelegate = self
+
+
+       
         
         newBaseline = false
-        
-        // Call function to create the camera shutter button
-        setupShutterButton()
-               
     }
     
-    // Create a camera shutter button (code referenced from chatGPT)
-    func setupShutterButton() {
-        let shutterButton = UIButton(type: .system)
-        shutterButton.setTitle("Shutter", for: .normal)
-        shutterButton.backgroundColor = .white
-        shutterButton.layer.cornerRadius = 35
-        shutterButton.layer.borderWidth = 4
-        shutterButton.layer.borderColor = UIColor.black.cgColor
-        
-        // Apply a shadow to increase button visibility on white backgrounds
-        shutterButton.layer.shadowColor = UIColor.black.cgColor
-        shutterButton.layer.shadowOpacity = 0.3
-        shutterButton.layer.shadowOffset = CGSize(width: 0, height: 3)
-        shutterButton.layer.shadowRadius = 4
-        
-        shutterButton.translatesAutoresizingMaskIntoConstraints = false
-        shutterButton.addTarget(self, action: #selector(capturePhotoButtonTapped), for: .touchUpInside)
 
-        view.addSubview(shutterButton)
-
-        // Add constraints
-        NSLayoutConstraint.activate([
-            shutterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            shutterButton.centerYAnchor.constraint(equalTo: StartStopCamera.centerYAnchor),
-            shutterButton.widthAnchor.constraint(equalToConstant: 70),
-            shutterButton.heightAnchor.constraint(equalToConstant: 70)
-        ])
-    }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowTrayViewController" {
@@ -125,7 +93,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
                 return
             }
             newBaseline = true
-            destinationVC.delegate =  self
+            destinationVC.tray_VC_delegate =  self
         }
         else if segue.identifier == "ShowTrayHistoryViewController", // Match the identifier of the segue
            let trayHistoryVC = segue.destination as? TrayHistoryViewController {
@@ -158,13 +126,11 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
         {
 
             // Resize the image to 512x512
-            //let targetSize = CGSize(width: 512, height: 512)
-            //let resizedImage = resizeImage(image: image, targetSize: targetSize)
-            let resizedImage = image
+            let targetSize = CGSize(width: 512, height: 512)
+            let resizedImage = resizeImage(image: image, targetSize: targetSize)
 
             // Convert UIImage to JPEG data
-            //if let jpegData = resizedImage?.jpegData(compressionQuality: 1.0)
-            if let jpegData = resizedImage.jpegData(compressionQuality: 1.0)
+            if let jpegData = resizedImage?.jpegData(compressionQuality: 1.0)
             {  // Compression quality: 1.0 = maximum quality
 
                 //save current resized image to send to training/prediction tasks
@@ -172,6 +138,10 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
 
                 DispatchQueue.main.async {
                     // self.capturedImageView.image = image
+                    
+                    //TEST ONLY - send image to shared object for testing REMOVE AFTER
+                    //Shared_VCdata.sharedData.trayImages.append(self.currentResizedImage)
+                    
                     self.capturedImageView.image = resizedImage
                     self.capturedImageView.isHidden = false
 
@@ -310,7 +280,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AVCapturePhotoCapt
             qrCodeScanner.detectQRCode(in: currentResizedImage) {  uuid in
                 DispatchQueue.main.async {
                     if let uuid = uuid {
-                       print("Success", "UUID Found: \(uuid.uuidString)")
+                       print("Success", "UUID Found: \(uuid)")
                         self.feedbackLabel.text =  "Success - UUID found in QR Code Scan!"
                         self.client.uploadImage(image: self.currentResizedImage, forStorageLocation: uuid)
                     } else {
@@ -340,34 +310,8 @@ extension ViewController: InventoryDelegate {
     }
 }
 
-/// used to notify the delegate when a new storage location has been created
-extension ViewController: NewStorageLocationDelegate {
-    func didCreateStorageLocation(storageLocation: StorageLocation){
-        print("New Storage Location Created \(storageLocation.id)")
-        new_sloc_UUID = storageLocation.id
-    }
-    func didFailCreatingStorageLocation(error: APIError){
-        print(" Failed to Create New Storage Location: \(error.localizedDescription) ")
-    }
-}
 
-extension ViewController: StorageLocationsDelegate {
-    func didFetchStorageLocations(locations: [StorageLocation]) {
-        print("Successfully Fetched StorageLocations \([locations])")
-    }
-    func didFailFetchingStorageLocations(error: APIError) {
-        print(" Failed to Fetch Storage Locations: \(error.localizedDescription) ")
-    }
-}
 
-extension ViewController: HistoryDelegate {
-    func didFetchHistory(storageLocation: StorageLocation, history: [InventoryCheck]) {
-        print("Successfully Fetched History for StorageLocation: \(storageLocation.id)")
-    }
-    func didFailFetchingHistory(error: APIError) {
-        print(" Failed to Fetch History: \(error.localizedDescription) ")
-    }
-}
 
 
 // MARK: - TrayViewControllerDelegate
@@ -379,5 +323,6 @@ extension ViewController: TrayViewControllerDelegate {
     func didSend_sloc_description (_ sloc_description: String) {
         new_sloc_description = sloc_description
         print("VC: new_sloc_description = \(String(describing: new_sloc_description))")
-    }
+    } 
+
 }

@@ -12,16 +12,29 @@ private let reuseIdentifier = "CollectCell"
 
 class TrayHistoryViewController: UICollectionViewController {
     
+    var currentlocations: [StorageLocation]?
+    
     var objectImages: [UIImage] = [] // Array to hold multiple images
+    
+
+    
+    // interacting with server
+    let client = APIClient()  // how we will interact with the server
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // use delegation for interacting with client
+        client.storageLocationsDelegate = self
+        
         
         // Ensure the object image is available
         //guard let objectImage = objectImage else {
         //    print("No object image provided")
         //    return
-       // }
+        // }
+        // Ask the client to fetch the Storage Locations
+        client.fetchStorageLocations()
         
         // Do any additional setup after loading the view.
     }
@@ -33,7 +46,8 @@ class TrayHistoryViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return objectImages.count // Number of items matches the number of images
+        //return objectImages.count // Number of items matches the number of images
+        return currentlocations?.count ?? 0 // Number of items matches the number of images
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -54,13 +68,13 @@ class TrayHistoryViewController: UICollectionViewController {
         // No need to performSegue here since the storyboard handles it
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showTrayDetailViewController",
-           let detailVC = segue.destination as? TrayDetailViewController,
-           let indexPath = collectionView.indexPathsForSelectedItems?.first{
-            detailVC.objectImage = objectImages[indexPath.item]
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "showTrayDetailViewController",
+//           let detailVC = segue.destination as? TrayDetailViewController,
+//           let indexPath = collectionView.indexPathsForSelectedItems?.first{
+//            detailVC.objectImage = objectImages[indexPath.item]
+//        }
+//    }
     
     /*
     // MARK: - Navigation
@@ -72,4 +86,14 @@ class TrayHistoryViewController: UICollectionViewController {
     }
     */
 
+}
+// Subscribe to APIClient NewStorageLocation Delegate
+extension TrayHistoryViewController: StorageLocationsDelegate {
+    func didFetchStorageLocations(locations: [StorageLocation]) {
+        print("TrayHistoryVC: StorageLocations Fetched! \(locations.count)")
+        currentlocations = locations
+    }
+    func didFailFetchingStorageLocations(error: APIError) {
+        print(" TrayHistoryVC: Failed to Fetch StorageLocations: \(error.localizedDescription) ")
+    }
 }

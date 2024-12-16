@@ -11,6 +11,7 @@ import UIKit
 protocol TrayModalViewControllerDelegate: AnyObject {
     func didSend_sloc_name (_ sloc_name: String)
     func didSend_sloc_description (_ sloc_description: String)
+    func willSend_NewSlocCreate()
 }
 
 class TrayModalViewController: UIViewController, UITextFieldDelegate {
@@ -27,8 +28,7 @@ class TrayModalViewController: UIViewController, UITextFieldDelegate {
     
     weak var delegate: TrayModalViewControllerDelegate? // Delegate reference
     
-    // interacting with server
-    let client = APIClient()  // how we will interact with the server
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,35 +38,49 @@ class TrayModalViewController: UIViewController, UITextFieldDelegate {
         slocName.delegate = self
         slocDescription.delegate = self
         
+        // Add a tap gesture to dismiss the keyboard
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+        
         
         // Do any additional setup after loading the view.
     }
     
+    // Dismiss the keyboard when tapping outside the text fields
+        @objc func dismissKeyboard() {
+            view.endEditing(true)
+        }
+    
     
     @IBAction func dismissSelected(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
+        delegate?.willSend_NewSlocCreate()
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // Switch focus between text fields
+    // Delegate method called when editing begins
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == slocName {
+            //print("User started editing First TextField")
+        } else if textField == slocDescription {
+            //print("User started editing Second TextField")
+        }
+    }
+    
+    // Delegate method called when editing ends
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == slocName {
+            //print("slocName TextField finished editing: \(textField.text ?? "")")
             print("ModalVC: slocName: \(String(describing: textField.text))")
             delegate?.didSend_sloc_name(textField.text ?? "")
             new_sloc_name = textField.text
-            slocDescription.becomeFirstResponder()
-        }
-        else {
+        } else if textField == slocDescription {
+            //print("slocDescription TextField finished editing: \(textField.text ?? "")")
             print("ModalVC: slocDescription: \(String(describing: textField.text))")
             delegate?.didSend_sloc_description(textField.text ?? "")
             new_sloc_description = textField.text
-            textField.resignFirstResponder() // Close the keyboard
         }
-        
-        // Request new storage location using APIClient
-        print("TrayModalVC: Requesting a New Storage Location - name: \(String(describing: new_sloc_name))")
-        client.createStorageLocation(withName: new_sloc_name ?? "", andDescription: new_sloc_description ?? "")
-        return true
     }
+    
 }
 
 
