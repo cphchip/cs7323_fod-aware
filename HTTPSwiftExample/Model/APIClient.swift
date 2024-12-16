@@ -32,33 +32,36 @@ class APIClient {
 
     // MARK: - Public Methods
     
-    func fetchImage(_ imageName: String, completion: @escaping (Result<UIImage, APIError>) -> Void) async {
-        // Validate the server URL
-        guard let serverURL = URL(string: "\(API_BASE_ENDPOINT)/images/\(imageName)")
-        else {
-            completion(.failure(.invalidURL))
+    func fetchImage(_ imageName: String, completion: @escaping (Result<UIImage, APIError>) -> Void) {
+        Task {
+            // Validate the server URL
+            guard let serverURL = URL(string: "\(API_BASE_ENDPOINT)/images/\(imageName)")
+            else {
+                completion(.failure(.invalidURL))
+                return
+            }
+            
+            // Prepare the request
+            var request = URLRequest(url: serverURL)
+            request.httpMethod = "GET"
+            request.addValue(API_TOKEN, forHTTPHeaderField: "x-api-token")
+            
+            // Send the request
+            let data = try? await performRequest(request)
+            
+            guard let data = data else {
+                completion(.failure(.noData))
+                return
+            }
+            
+            // Decode the response
+            guard let image = UIImage(data: data) else {
+                completion(.failure(.decodingError("Failed to decode the image data")))
+                return
+            }
+            completion(.success(image))
             return
         }
-        
-        // Prepare the request
-        var request = URLRequest(url: serverURL)
-        request.httpMethod = "GET"
-        request.addValue(API_TOKEN, forHTTPHeaderField: "x-api-token")
-        
-        // Send the request
-        let data = try? await performRequest(request)
-        
-        guard let data = data else {
-            completion(.failure(.noData))
-            return
-        }
-        
-        // Decode the response
-        guard let image = UIImage(data: data) else {
-            completion(.failure(.decodingError("Failed to decode the image data")))
-            return
-        }
-        completion(.success(image))
     }
     
     /// Create a new storage location

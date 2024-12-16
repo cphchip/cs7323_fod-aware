@@ -58,16 +58,30 @@ class TrayHistoryViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? CollectionViewCell {
-            
+            cell.imageView.image = UIImage(named: "placeholder")
             //cell.imageView.image = objectImages[indexPath.item] // Set the image for the corresponding item
             guard let locations = currentlocations else {
                 return cell
             }
-            DispatchQueue.main.async {
-                if let imageName = locations[indexPath.item].image_name {
-                    cell.imageView.image = await client.fetchImage(imageName:imageName)
+            // add text to the cell here (slocName)
+            let slocName = locations[indexPath.item].name
+            
+            guard let imageName = locations[indexPath.item].image_name else {
+                return cell
+            }
+            
+            client.fetchImage(imageName) { result in
+                switch result {
+                case .success(let image):
+                    DispatchQueue.main.async {
+                        cell.imageView.image = image
+                        
+                    }
+                case .failure(let error):
+                    print("Failed to fetch image: \(error.localizedDescription)")
                 }
             }
+            
             return cell
             
         }else{
@@ -105,6 +119,10 @@ extension TrayHistoryViewController: StorageLocationsDelegate {
     func didFetchStorageLocations(locations: [StorageLocation]) {
         print("TrayHistoryVC: StorageLocations Fetched! \(locations.count)")
         currentlocations = locations
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+        
     }
     func didFailFetchingStorageLocations(error: APIError) {
         print(" TrayHistoryVC: Failed to Fetch StorageLocations: \(error.localizedDescription) ")
