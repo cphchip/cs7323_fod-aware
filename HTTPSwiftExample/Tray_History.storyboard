@@ -44,6 +44,7 @@
                                 </collectionViewCellContentView>
                                 <connections>
                                     <outlet property="imageView" destination="cGM-Ni-kEd" id="Use-qK-m0G"/>
+                                    <segue destination="cxE-BS-TRM" kind="show" identifier="ShowLoactionHistoryViewController" id="YUq-9J-lyz"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>

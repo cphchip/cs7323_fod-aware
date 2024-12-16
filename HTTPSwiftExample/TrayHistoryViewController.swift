@@ -68,13 +68,13 @@ class TrayHistoryViewController: UICollectionViewController {
         // No need to performSegue here since the storyboard handles it
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showTrayDetailViewController",
-//           let detailVC = segue.destination as? TrayDetailViewController,
-//           let indexPath = collectionView.indexPathsForSelectedItems?.first{
-//            detailVC.objectImage = objectImages[indexPath.item]
-//        }
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowLocationHistoryViewController",
+           let detailVC = segue.destination as? LocationHistoryViewController,
+           let indexPath = collectionView.indexPathsForSelectedItems?.first{
+            detailVC.locationImages[indexPath.item] = objectImages[indexPath.item]
+        }
+    }
     
     /*
     // MARK: - Navigation

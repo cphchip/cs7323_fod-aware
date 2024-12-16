@@ -78,7 +78,8 @@ class LocationHistoryViewController: UITableViewController {
            let cell = sender as? UITableViewCell,
            let name = cell.textLabel?.text,
            let indexPath = tableView.indexPath(for: cell) { // Get the indexPath of the tapped cell
-            vc.objectImage = Shared_VCdata.sharedData.trayImages[indexPath.row]  // Pass the correct image
+            //vc.objectImage = Shared_VCdata.sharedData.trayImages[indexPath.row]  // Pass the correct image
+            vc.objectImage = locationImages[indexPath.row]  // Pass the correct image
             
         }
         
