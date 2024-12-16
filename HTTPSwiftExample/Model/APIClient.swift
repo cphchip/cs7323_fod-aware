@@ -32,26 +32,36 @@ class APIClient {
 
     // MARK: - Public Methods
     
-    func fetchImage(imageName: String) async throws -> UIImage {
-        // Validate the server URL
-        guard let serverURL = URL(string: "\(API_BASE_ENDPOINT)/images/\(imageName)")
-        else {
-            throw APIError.invalidURL
+    func fetchImage(_ imageName: String, completion: @escaping (Result<UIImage, APIError>) -> Void) {
+        Task {
+            // Validate the server URL
+            guard let serverURL = URL(string: "\(API_BASE_ENDPOINT)/images/\(imageName)")
+            else {
+                completion(.failure(.invalidURL))
+                return
+            }
+            
+            // Prepare the request
+            var request = URLRequest(url: serverURL)
+            request.httpMethod = "GET"
+            request.addValue(API_TOKEN, forHTTPHeaderField: "x-api-token")
+            
+            // Send the request
+            let data = try? await performRequest(request)
+            
+            guard let data = data else {
+                completion(.failure(.noData))
+                return
+            }
+            
+            // Decode the response
+            guard let image = UIImage(data: data) else {
+                completion(.failure(.decodingError("Failed to decode the image data")))
+                return
+            }
+            completion(.success(image))
+            return
         }
-        
-        // Prepare the request
-        var request = URLRequest(url: serverURL)
-        request.httpMethod = "GET"
-        request.addValue(API_TOKEN, forHTTPHeaderField: "x-api-token")
-        
-        // Send the request
-        let data = try await performRequest(request)
-        
-        // Decode the response
-        guard let image = UIImage(data: data) else {
-            throw APIError.decodingError("Failed to decode image data")
-        }
-        return image
     }
     
     /// Create a new storage location
@@ -220,7 +230,8 @@ class APIClient {
 
         // Send the request
         let data = try await performRequest(request)
-
+        let dataString = String(data: data, encoding: .utf8)
+        print("Data: \(dataString ?? "No data")")
         // Decode the response
         return try decodeResponse(data) as StorageLocationsResponse
     }
@@ -245,7 +256,9 @@ class APIClient {
 
         // Send the request
         let data = try await performRequest(request)
-
+        // convert data to string
+        let dataString = String(data: data, encoding: .utf8)
+        print("Data: \(dataString ?? "No data")")
         // Decode the response
         return try decodeResponse(data) as HistoryResponse
     }
