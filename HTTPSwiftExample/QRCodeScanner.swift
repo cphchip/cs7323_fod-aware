@@ -10,7 +10,7 @@ import UIKit
 import Vision
 
 class QRCodeScanner {
-    func detectQRCode(in image: UIImage, completion: @escaping (UUID?) -> Void) {
+    func detectQRCode(in image: UIImage, completion: @escaping (String?) -> Void) {
         guard let cgImage = image.cgImage else {
             completion(nil)
             return
@@ -30,12 +30,10 @@ class QRCodeScanner {
             
             for result in results {
                 if result.symbology == .qr, let payload = result.payloadStringValue {
-                    if let uuid = UUID(uuidString: payload) {
-                        completion(uuid)
-                        return
-                    } else {
-                        print("Payload is not a valid UUID: \(payload)")
-                    }
+                    
+                    completion(payload)
+                    return
+
                 }
             }
             completion(nil)

@@ -21,6 +21,9 @@ class TrayViewController: UIViewController {
     // Source: OpenAI's ChatGPT (https://openai.com/chatgpt)
     // Prompt: generate a QR code in an app using Apple's iOS and Swift
     
+    // interacting with server
+    let client = APIClient()  // how we will interact with the server
+    
     // name of the new storage location
     var new_sloc_name: String?
     
@@ -31,7 +34,7 @@ class TrayViewController: UIViewController {
     var new_date_created: Date?
     
     // new qr code received from server for new storage location
-    var new_qr_code: UUID?
+    var new_qr_code: String?
     
     // new qr code.text used to generate QR code
     var new_qr_code_text: String?
@@ -47,7 +50,7 @@ class TrayViewController: UIViewController {
     
     @IBOutlet weak var qrCodeImageView: UIImageView!
     
-    weak var delegate: TrayViewControllerDelegate? // Delegate reference
+    weak var tray_VC_delegate: TrayViewControllerDelegate? // TrayViewControllerDelegate reference
     
     var newQRcode_received: Bool = false  //check if new QR Code received from APIClient
     
@@ -57,8 +60,11 @@ class TrayViewController: UIViewController {
         qrCodeImageView.contentMode = .scaleAspectFit
 
         newQRcode_received = false
-
+        
+        
         // Do any additional setup after loading the view.
+        client.newStorageLocationDelegate = self
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -68,13 +74,18 @@ class TrayViewController: UIViewController {
         }
     }
     
+    func Send_CreateNewSloc() {
+        // Request new storage location using APIClient
+        print("TrayModalVC: Requesting a New Storage Location - name: \(String(describing: new_sloc_name))")
+        feedbackLabel.text = "Requesting a New Storage Location!"
+        client.createStorageLocation(withName: new_sloc_name ?? "", andDescription: new_sloc_description ?? "")
+    }
+    
     @IBAction func createQRCode(_ sender: UIButton) {
          //  Get QR Code text
          //let qrCode = UUID()
         if newQRcode_received { // received new storageLocation QR code?
-            if let qrCodeText = new_qr_code?.uuidString {
-                new_qr_code_text = qrCodeText
-            }
+            new_qr_code_text = new_qr_code
             
             if let qrCodeImage = generateQRCode(from: new_qr_code_text ?? "") {
                 // Display QRCode Image
@@ -202,7 +213,7 @@ extension TrayViewController: TrayModalViewControllerDelegate {
         // Populate sloc_name UILabel
         slocName.text = new_sloc_name
         
-        delegate?.didSend_sloc_name(new_sloc_name ?? "")
+        tray_VC_delegate?.didSend_sloc_name(new_sloc_name ?? "")
     }
     
     func didSend_sloc_description (_ sloc_description: String) {
@@ -212,7 +223,22 @@ extension TrayViewController: TrayModalViewControllerDelegate {
         // Populate sloc_description UILabel
         slocDescription.text = new_sloc_description
         
-        delegate?.didSend_sloc_description(new_sloc_description ?? "")
+        tray_VC_delegate?.didSend_sloc_description(new_sloc_description ?? "")
+    }
+    func willSend_NewSlocCreate() {
+        // Check if both text fields have valid non-empty values
+        if let name = new_sloc_name, !name.isEmpty,
+           let description = new_sloc_description, !description.isEmpty {
+            // Both fields are valid, proceed further
+            print("trayVC-Name: \(name)")
+            print("trayVC-Description: \(description)")
+            
+            // Request new storage location using APIClient
+            Send_CreateNewSloc()
+        }
+        else {
+            print(" Must Enter Both Name and Description!")
+        }
     }
 }
 
@@ -220,11 +246,17 @@ extension TrayViewController: TrayModalViewControllerDelegate {
 extension TrayViewController: NewStorageLocationDelegate {
     func didCreateStorageLocation(storageLocation: StorageLocation){
         print("New Storage Location Created \(storageLocation.id)")
-        feedbackLabel.text = "New Storage Location Created \(storageLocation.id) - QR Code can be Created and Printed"
+        DispatchQueue.main.async{
+            self.feedbackLabel.text = "Created Storage Location-Create and Print QR Code"
+        }
         new_qr_code = storageLocation.id
         newQRcode_received = true
     }
     func didFailCreatingStorageLocation(error: APIError){
         print(" Failed to Create New Storage Location: \(error.localizedDescription) ")
+        DispatchQueue.main.async{
+            self.feedbackLabel.text = "Failed to Create New Storage Location: \(error.localizedDescription) "
+        }
     }
+    
 }
