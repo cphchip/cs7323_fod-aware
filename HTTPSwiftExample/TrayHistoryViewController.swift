@@ -34,9 +34,14 @@ class TrayHistoryViewController: UICollectionViewController {
         //    return
         // }
         // Ask the client to fetch the Storage Locations
-        client.fetchStorageLocations()
+        
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated:Bool)  {
+        super.viewWillAppear(animated)
+        client.fetchStorageLocations()
     }
     
     // MARK: UICollectionViewDataSource
@@ -54,7 +59,15 @@ class TrayHistoryViewController: UICollectionViewController {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? CollectionViewCell {
             
-            cell.imageView.image = objectImages[indexPath.item] // Set the image for the corresponding item
+            //cell.imageView.image = objectImages[indexPath.item] // Set the image for the corresponding item
+            guard let locations = currentlocations else {
+                return cell
+            }
+            DispatchQueue.main.async {
+                if let imageName = locations[indexPath.item].image_name {
+                    cell.imageView.image = await client.fetchImage(imageName:imageName)
+                }
+            }
             return cell
             
         }else{
