@@ -32,11 +32,12 @@ class APIClient {
 
     // MARK: - Public Methods
     
-    func fetchImage(imageName: String) async throws -> UIImage {
+    func fetchImage(_ imageName: String, completion: @escaping (Result<UIImage, APIError>) -> Void) async {
         // Validate the server URL
         guard let serverURL = URL(string: "\(API_BASE_ENDPOINT)/images/\(imageName)")
         else {
-            throw APIError.invalidURL
+            completion(.failure(.invalidURL))
+            return
         }
         
         // Prepare the request
@@ -45,13 +46,19 @@ class APIClient {
         request.addValue(API_TOKEN, forHTTPHeaderField: "x-api-token")
         
         // Send the request
-        let data = try await performRequest(request)
+        let data = try? await performRequest(request)
+        
+        guard let data = data else {
+            completion(.failure(.noData))
+            return
+        }
         
         // Decode the response
         guard let image = UIImage(data: data) else {
-            throw APIError.decodingError("Failed to decode image data")
+            completion(.failure(.decodingError("Failed to decode the image data")))
+            return
         }
-        return image
+        completion(.success(image))
     }
     
     /// Create a new storage location
