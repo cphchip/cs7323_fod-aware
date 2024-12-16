@@ -65,7 +65,6 @@ class TrayHistoryViewController: UICollectionViewController {
             }
             // add text to the cell here (slocName)
             let slocName = locations[indexPath.item].name
-            
             guard let imageName = locations[indexPath.item].image_name else {
                 return cell
             }
@@ -75,7 +74,6 @@ class TrayHistoryViewController: UICollectionViewController {
                 case .success(let image):
                     DispatchQueue.main.async {
                         cell.imageView.image = image
-                        
                     }
                 case .failure(let error):
                     print("Failed to fetch image: \(error.localizedDescription)")
@@ -95,13 +93,14 @@ class TrayHistoryViewController: UICollectionViewController {
         // No need to performSegue here since the storyboard handles it
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showTrayDetailViewController",
-//           let detailVC = segue.destination as? TrayDetailViewController,
-//           let indexPath = collectionView.indexPathsForSelectedItems?.first{
-//            detailVC.objectImage = objectImages[indexPath.item]
-//        }
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowLocationHistoryiewController",
+           let locVC = segue.destination as? LocationHistoryViewController,
+           let indexPath = collectionView.indexPathsForSelectedItems?.first{
+            //locVC.objectImage = objectImages[indexPath.item]
+            locVC.currentlocation = currentlocations?[indexPath.item]
+        }
+    }
     
     /*
     // MARK: - Navigation

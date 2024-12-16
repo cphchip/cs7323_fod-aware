@@ -15,6 +15,10 @@ class LocationHistoryViewController: UITableViewController {
     var current_row: Int?
     var locationImages: [UIImage] = []  //location images to pass to TrayDetail View Controller
     
+    var currentlocation: StorageLocation?
+    
+    var current_uuid: UUID?
+    
     // interacting with server
     let client = APIClient()  // how we will interact with the server
     
@@ -23,7 +27,12 @@ class LocationHistoryViewController: UITableViewController {
         
         // use delegation for interacting with client
         client.historyDelegate = self
-        
+   
+    }
+    
+    override func viewWillAppear(_ animated:Bool)  {
+        super.viewWillAppear(animated)
+        client.fetchHistory(forStorageLocation: currentlocation.id)
     }
     
     // MARK: - Table view data source
@@ -55,7 +64,7 @@ class LocationHistoryViewController: UITableViewController {
             
             // Configure the cell...
             //if let name = self.imageModel.getImageName(for: indexPath.row) as? String{
-            //    cell.textLabel!.text = name
+            cell.textLabel?.text = currentlocation?.created as? String
             //}
            return cell
         }
@@ -78,7 +87,8 @@ class LocationHistoryViewController: UITableViewController {
            let cell = sender as? UITableViewCell,
            let name = cell.textLabel?.text,
            let indexPath = tableView.indexPath(for: cell) { // Get the indexPath of the tapped cell
-            vc.objectImage = Shared_VCdata.sharedData.trayImages[indexPath.row]  // Pass the correct image
+           //vc.objectImage = Shared_VCdata.sharedData.trayImages[indexPath.row]  // Pass the correct image
+            vc.objectImage = locationImages[indexPath.row]  // Pass the correct image
             
         }
         
