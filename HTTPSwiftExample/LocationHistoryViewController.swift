@@ -51,6 +51,7 @@ class LocationHistoryViewController: UITableViewController {
             //return self.imageModel.numberOfImages()
             //For TESTING ONLY
             //return Shared_VCdata.sharedData.trayImages.count
+            print("locHist:  count = \(locHistory?.count ?? 1)")
             return locHistory?.count ?? 1
         }
         
@@ -63,14 +64,18 @@ class LocationHistoryViewController: UITableViewController {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "InvHistoryCell", for: indexPath)
             
-            // FOR TESTING ONLY
-            //print("current_row: \(indexPath.row)")
-            //locationImages[indexPath.row] = Shared_VCdata.sharedData.trayImages[indexPath.row]
-            
-            // Configure the cell...
-            //if let name = self.imageModel.getImageName(for: indexPath.row) as? String{
-            cell.textLabel?.text = currentlocation?.created as? String
-            //}
+            let date: Date = locHistory?[indexPath.row].created ?? Date()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+            let date_str = dateFormatter.string(from: date)
+            var inv_status: String = ""
+            if locHistory?[indexPath.row].matches_baseline == true {
+                inv_status = "Inventory Success"
+            }
+            else {
+                inv_status = "Missing Items"
+            }
+            cell.textLabel?.text = "\(date_str) - \(inv_status)"
            return cell
         }
         else {
@@ -116,6 +121,9 @@ extension LocationHistoryViewController: HistoryDelegate {
         print("Successfully Fetched History for StorageLocation: \(storageLocation.id)")
         print("LocationHistoryVC: Location Histories Fetched! \(history.count)")
         locHistory = history
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
         
     }
     func didFailFetchingHistory(error: APIError) {
