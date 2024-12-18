@@ -1,8 +1,8 @@
 //
-//  model.swift
-//  HTTPSwiftExample
+//  APIModel.swift
 //
 //  Created by Ches Smith on 12/12/24.
+// Contains the data models for the API
 
 import Foundation
 

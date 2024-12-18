@@ -3,11 +3,12 @@
 //
 //  Created by Ches Smith on 11/24/24.
 //
+// Utilities for the API client
 
 import Foundation
 
 
-// error type for the api client
+/// error type for the api client
 enum APIError: Error, LocalizedError {
     case invalidResponse(String?)
     case invalidURL
@@ -48,7 +49,9 @@ enum APIError: Error, LocalizedError {
 }
 
 extension APIClient {
+    // MARK: - HTTP Response Handling
     
+    // Parse the error detail from the server
     private func parseErrorDetail(from data: Data?) -> String {
         guard let data = data else { return "No detail from server" }
         if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
@@ -58,6 +61,7 @@ extension APIClient {
         return "No detail from server"
     }
     
+    // Perform the HTTP request
     func performRequest(_ request: URLRequest) async throws -> Data {
         // Send the request
         let (data, response) = try await URLSession.shared.data(for: request)
@@ -67,6 +71,7 @@ extension APIClient {
             throw APIError.invalidResponse(nil)
         }
         
+        // make sure we have a valid status code
         guard (200...299).contains(httpResponse.statusCode) else {
             let detail = parseErrorDetail(from: data)
             throw APIError.httpError(httpResponse.statusCode, detail)
@@ -75,6 +80,7 @@ extension APIClient {
         return data
     }
     
+    // attempt to decode the response
     func decodeResponse<T: Decodable>(_ data: Data) throws -> T {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601

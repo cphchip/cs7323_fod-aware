@@ -1,13 +1,15 @@
 //
 //  APIClient.swift
-//  HTTPSwiftExample
 //
 //  Created by Ches Smith on 12/12/24.
 //
+// API client for the FodAware app
+
 
 import Foundation
 import UIKit
 
+/// API client for the FodAware app
 class APIClient {
     // MARK: - Private Constants
     // API endpoint
@@ -32,6 +34,10 @@ class APIClient {
 
     // MARK: - Public Methods
     
+    /// Fetch an image from the server with the given name
+    /// - Parameters:
+    ///  - imageName: The name of the image to fetch
+    ///  - completion: The completion handler to call when the image is fetched
     func fetchImage(_ imageName: String, completion: @escaping (Result<UIImage, APIError>) -> Void) {
         Task {
             // Validate the server URL
@@ -84,6 +90,10 @@ class APIClient {
         }
     }
 
+    /// Upload an image for the given storage location
+    /// - Parameters:
+    ///  - image: The image to upload
+    ///  - sloc_id: The ID of the storage location
     func uploadImage(image: UIImage, forStorageLocation sloc_id: String) {
         Task {
             do {
@@ -109,6 +119,7 @@ class APIClient {
         }
     }
 
+    /// Fetch the storage locations from the server
     func fetchStorageLocations() {
         Task {
             do {
@@ -125,6 +136,9 @@ class APIClient {
         }
     }
 
+    /// Fetch the history for the given storage location
+    /// - Parameters:
+    /// - sloc_id: The ID of the storage location
     func fetchHistory(forStorageLocation sloc_id: String) {
         Task {
             do {

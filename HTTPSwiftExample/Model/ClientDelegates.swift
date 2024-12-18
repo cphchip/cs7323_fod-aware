@@ -3,6 +3,8 @@
 //  HTTPSwiftExample
 //
 //  Created by Ches Smith on 12/12/24.
+//
+// Contains the delegate protocols for the API client
 
 /// used to notify the delegate when the image has been uploaded
 protocol InventoryDelegate: AnyObject {
