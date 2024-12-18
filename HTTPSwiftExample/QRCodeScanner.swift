@@ -15,9 +15,9 @@ class QRCodeScanner {
             completion(nil)
             return
         }
-        // for testing without QR code
-        completion("6762268096b5d255b8f0cdec")
-        return
+        // uncomment for testing without QR code
+//        completion("6762268096b5d255b8f0cdec")
+//        return
         let request = VNDetectBarcodesRequest { request, error in
             if let error = error {
                 print("Error detecting QR code: \(error.localizedDescription)")

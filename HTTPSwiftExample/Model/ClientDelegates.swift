@@ -27,6 +27,7 @@ protocol StorageLocationsDelegate: AnyObject {
 
 /// used to notify the delegate when history has been fetched
 protocol HistoryDelegate: AnyObject {
-    func didFetchHistory(storageLocation: StorageLocation, history: [InventoryCheck])
+    func didFetchHistory(
+        storageLocation: StorageLocation, history: [InventoryCheck])
     func didFailFetchingHistory(error: APIError)
 }

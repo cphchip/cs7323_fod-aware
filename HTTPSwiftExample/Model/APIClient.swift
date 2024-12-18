@@ -5,7 +5,6 @@
 //
 // API client for the FodAware app
 
-
 import Foundation
 import UIKit
 
@@ -22,54 +21,60 @@ class APIClient {
     // MARK: - Delegates
     /// Delegate for image-related operations
     public var inventoryDelegate: InventoryDelegate?
-    
+
     /// Delegate for creating new storage locations
     public var newStorageLocationDelegate: NewStorageLocationDelegate?
-    
+
     /// Delegate for fetching storage locations
     public var storageLocationsDelegate: StorageLocationsDelegate?
-    
+
     /// Delegate for fetching history for a storage location
     public var historyDelegate: HistoryDelegate?
 
     // MARK: - Public Methods
-    
+
     /// Fetch an image from the server with the given name
     /// - Parameters:
     ///  - imageName: The name of the image to fetch
     ///  - completion: The completion handler to call when the image is fetched
-    func fetchImage(_ imageName: String, completion: @escaping (Result<UIImage, APIError>) -> Void) {
+    func fetchImage(
+        _ imageName: String,
+        completion: @escaping (Result<UIImage, APIError>) -> Void
+    ) {
         Task {
             // Validate the server URL
-            guard let serverURL = URL(string: "\(API_BASE_ENDPOINT)/images/\(imageName)")
+            guard
+                let serverURL = URL(
+                    string: "\(API_BASE_ENDPOINT)/images/\(imageName)")
             else {
                 completion(.failure(.invalidURL))
                 return
             }
-            
+
             // Prepare the request
             var request = URLRequest(url: serverURL)
             request.httpMethod = "GET"
             request.addValue(API_TOKEN, forHTTPHeaderField: "x-api-token")
-            
+
             // Send the request
             let data = try? await performRequest(request)
-            
+
             guard let data = data else {
                 completion(.failure(.noData))
                 return
             }
-            
+
             // Decode the response
             guard let image = UIImage(data: data) else {
-                completion(.failure(.decodingError("Failed to decode the image data")))
+                completion(
+                    .failure(.decodingError("Failed to decode the image data")))
                 return
             }
             completion(.success(image))
             return
         }
     }
-    
+
     /// Create a new storage location
     func createStorageLocation(
         withName name: String, andDescription description: String
@@ -156,7 +161,7 @@ class APIClient {
     }
 
     // MARK: - Private Methods
-    
+
     private func performCreateStorageLocation(name: String, description: String)
         async throws -> NewStorageLocationResponse
     {
@@ -185,7 +190,8 @@ class APIClient {
         return try decodeResponse(data) as NewStorageLocationResponse
     }
 
-    private func performUploadImage(sloc_id: String, image: UIImage) async throws
+    private func performUploadImage(sloc_id: String, image: UIImage)
+        async throws
         -> ImageUploadResponse
     {
         // Validate the server URL

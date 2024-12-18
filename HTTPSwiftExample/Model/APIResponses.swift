@@ -74,7 +74,6 @@ enum CreateStorageLocationResponse {
     case success(NewStorageLocationResponse)
 }
 
-
 extension CreateStorageLocationResponse: Decodable {
     private enum CodingKeys: String, CodingKey {
         case status
